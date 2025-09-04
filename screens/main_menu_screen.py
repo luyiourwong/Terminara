@@ -28,8 +28,7 @@ class MainMenuScreen(Screen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button press events."""
         if event.button.id == "start_new_game":
-            # TODO: Implement start new game functionality
-            pass
+            self.app.switch_screen("game_view")
         elif event.button.id == "load_game":
             # TODO: Implement load game functionality
             pass
