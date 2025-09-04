@@ -30,7 +30,7 @@ class MainMenuScreen(Screen):
         if event.button.id == "start_new_game":
             # TODO: Implement start new game functionality
             pass
-        if event.button.id == "load_game":
+        elif event.button.id == "load_game":
             # TODO: Implement load game functionality
             pass
 
