@@ -9,7 +9,7 @@ class TerminalApp(App):
     CSS_PATH = os.path.join("screens", "styles.tcss")
 
     def on_mount(self) -> None:
-        self.app.push_screen(MainMenuScreen())
+        self.push_screen(MainMenuScreen())
 
 
 if __name__ == "__main__":
