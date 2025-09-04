@@ -48,23 +48,11 @@ class MainMenuScreen(Screen):
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
-        buttons = self.query("Button")
-        focused_index = next(
-            (i for i, button in enumerate(buttons) if button.has_focus), 0
-        )
-        # Calculate previous button index (with wrapping)
-        previous_index = (focused_index - 1) % len(buttons)
-        buttons[previous_index].focus()
+        self.focus_previous(Button)
 
     def action_focus_next(self) -> None:
         """Focus on the next button."""
-        buttons = self.query("Button")
-        focused_index = next(
-            (i for i, button in enumerate(buttons) if button.has_focus), 0
-        )
-        # Calculate next button index (with wrapping)
-        next_index = (focused_index + 1) % len(buttons)
-        buttons[next_index].focus()
+        self.focus_next(Button)
 
     def action_press_selected(self) -> None:
         """Trigger the currently focused button."""
