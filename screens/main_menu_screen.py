@@ -38,13 +38,13 @@ class MainMenuScreen(Screen):
         """Directly trigger the first button (Start New Game)."""
         button = self.query_one("#start_new_game", Button)
         if not button.disabled:
-            self.on_button_pressed(Button.Pressed(button))
+            button.press()
 
     def action_press_button_2(self) -> None:
         """Directly trigger the second button (Load Game)."""
         button = self.query_one("#load_game", Button)
         if not button.disabled:
-            self.on_button_pressed(Button.Pressed(button))
+            button.press()
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
@@ -56,10 +56,6 @@ class MainMenuScreen(Screen):
 
     def action_press_selected(self) -> None:
         """Trigger the currently focused button."""
-        try:
-            button = next(button for button in self.query("Button") if button.has_focus)
-            if isinstance(button, Button) and not button.disabled:
-                self.on_button_pressed(Button.Pressed(button))
-        except StopIteration:
-            # No button is currently focused
-            pass
+        focused = self.app.focused
+        if isinstance(focused, Button) and not focused.disabled:
+            focused.press()
