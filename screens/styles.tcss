@@ -1,0 +1,19 @@
+# https://textual.textualize.io/styles/
+
+Screen {
+    margin: 0;
+    padding: 0;
+}
+Button {
+    content-align: left bottom;
+    width: 100%;
+    height: 1;
+    margin: 0;
+    padding: 0;
+    border: none; # https://github.com/Textualize/textual/discussions/2734
+    text-align: left;
+}
+Button:focus {
+    background: white 50%;
+    color: black;
+}
