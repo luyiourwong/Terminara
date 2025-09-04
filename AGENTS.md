@@ -2,6 +2,12 @@
 
 A terminal-based ai simulation game.
 
+## Usage
+This is a long-live program, so if you want to test it, use this command instead:
+```bash
+python main.py > app.log 2>&1 &
+```
+
 ## Objective
 
 To create a terminal-based AI simulation game using Python and the `textual` library. The game features an AI-driven storyteller that generates scenarios and choices for the player within a customizable world setting.
