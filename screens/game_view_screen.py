@@ -53,8 +53,9 @@ class GameViewScreen(Screen):
         """Update the scenario text and choice buttons."""
         self.query_one("#scenario_text", Static).update(scenario.text)
         buttons = self.query("Vertical#choice_buttons > Button")
+        num_choices = min(len(scenario.choices), 4)
         for i, button in enumerate(buttons):
-            if i < len(scenario.choices):
+            if i < num_choices:
                 button.label = scenario.choices[i]
                 button.display = True
             else:
