@@ -1,6 +1,11 @@
+from typing import List
+
+from objects.scenario import Scenario
+
+
 class GameEngine:
     def __init__(self):
-        self._scenarios = [
+        scenarios_data = [
             {
                 "text": "You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
                 "choices": [
@@ -20,12 +25,15 @@ class GameEngine:
                 ],
             },
         ]
+        self._scenarios: List[Scenario] = [
+            Scenario(**data) for data in scenarios_data
+        ]
         self._current_scenario_index = 0
 
-    def get_initial_scenario(self):
+    def get_initial_scenario(self) -> Scenario:
         return self._scenarios[0]
 
-    def get_next_scenario(self, choice: int):
+    def get_next_scenario(self, choice: int) -> Scenario:
         # This is a placeholder implementation that ignores the choice and cycles
         # between the two scenarios.
         self._current_scenario_index = (self._current_scenario_index + 1) % len(

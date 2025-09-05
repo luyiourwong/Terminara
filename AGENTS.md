@@ -23,6 +23,9 @@ terminara/
 |   |-- ai_narrator.py    # Handles interaction with the AI model
 |   |-- state_manager.py  # Manages game state, saving, and loading
 |   `-- world_handler.py  # Handles importing/exporting of world settings
+|-- objects/
+|   |-- __init__.py
+|   `-- scenario.py       # Defines the data structure for game scenarios
 |-- screens/
 |   |-- __init__.py
 |   |-- main_menu_screen.py
