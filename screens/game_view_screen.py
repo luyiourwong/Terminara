@@ -4,6 +4,7 @@ from textual.screen import Screen
 from textual.widgets import Button, Static
 from textual.containers import Vertical, Horizontal
 
+from core.game_engine import GameEngine
 from screens.details_view_screen import DetailsViewScreen
 from screens.options_menu_screen import OptionsMenuScreen
 
@@ -23,29 +24,37 @@ class GameViewScreen(Screen):
         Binding("enter", "press_selected", "Activate selected button"),
     ]
 
+    def __init__(self) -> None:
+        super().__init__()
+        self.game_engine = GameEngine()
+
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
         with Horizontal(id="nav_buttons"):
             yield Button("[D] Details", id="details_button")
             yield Button("[O] Options", id="options_button")
-        
-        yield Static(
-            "You find yourself standing at the edge of a mysterious forest. "
-            "The ancient trees tower above you, their branches swaying gently in the wind. "
-            "Strange sounds echo from within the depths of the woodland. "
-            "What do you choose to do?",
-            id="scenario_text"
-        )
-        
+
+        yield Static("", id="scenario_text")
+
         with Vertical(id="choice_buttons"):
-            yield Button("1. Enter the forest cautiously", id="choice_1")
-            yield Button("2. Call out to see if anyone responds", id="choice_2")
-            yield Button("3. Search for another path around", id="choice_3")
-            yield Button("4. Turn back and leave", id="choice_4")
+            yield Button("", id="choice_1")
+            yield Button("", id="choice_2")
+            yield Button("", id="choice_3")
+            yield Button("", id="choice_4")
 
     def on_mount(self) -> None:
-        """Set initial focus to the first choice button when the screen is mounted."""
+        """Set initial focus and load the first scenario."""
+        initial_scenario = self.game_engine.get_initial_scenario()
+        self._update_scenario_view(initial_scenario)
         self.query_one("#choice_1").focus()
+
+    def _update_scenario_view(self, scenario: dict) -> None:
+        """Update the scenario text and choice buttons."""
+        self.query_one("#scenario_text", Static).update(scenario["text"])
+        self.query_one("#choice_1", Button).label = scenario["choices"][0]
+        self.query_one("#choice_2", Button).label = scenario["choices"][1]
+        self.query_one("#choice_3", Button).label = scenario["choices"][2]
+        self.query_one("#choice_4", Button).label = scenario["choices"][3]
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button press events."""
@@ -53,8 +62,10 @@ class GameViewScreen(Screen):
             self.app.push_screen(DetailsViewScreen())
         elif event.button.id == "options_button":
             self.app.push_screen(OptionsMenuScreen())
-        elif event.button.id in ["choice_1", "choice_2", "choice_3", "choice_4"]:
-            pass
+        elif event.button.id.startswith("choice_"):
+            choice_number = int(event.button.id.split("_")[1])
+            next_scenario = self.game_engine.get_next_scenario(choice_number)
+            self._update_scenario_view(next_scenario)
 
     def action_show_details(self) -> None:
         """Show the details screen."""
