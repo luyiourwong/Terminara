@@ -40,7 +40,7 @@ class OptionsMenuScreen(Screen):
             # TODO: Implement functionality
             pass
         elif event.button.id == "title":
-            from screens.main_menu_screen import MainMenuScreen
+            from terminara.screens.main_menu_screen import MainMenuScreen
             self.app.switch_screen(MainMenuScreen())
         elif event.button.id == "exit":
             self.app.exit()

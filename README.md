@@ -13,8 +13,9 @@ A terminal-based ai simulation game.
 2.  **Create a virtual environment:**
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+    source .venv/bin/activate
     ```
+    On Windows, use `.venv\Scripts\activate`
 
 3.  **Install the dependencies:**
     ```bash
@@ -22,11 +23,48 @@ A terminal-based ai simulation game.
     ```
 
 ## Usage
+
+### Method 1: Install as package (Recommended)
 ```bash
-python main.py
+pip install -e .
+```
+then run the game with:
+```bash
+terminara
 ```
 
-This is a long-live program, so if you want to test it, use this command instead:
+### Method 2: Direct execution
+Cross-platform way
 ```bash
-python main.py > app.log 2>&1 &
+python -m terminara.main
 ```
+or
+```bash
+python terminara/main.py
+```
+On Windows, use `terminara\main.py`
+
+### Method 3: Background execution for testing
+This is a long-live program, so if you want to test it, you can use this command instead:
+
+Unix/Linux/macOS
+```bash
+python -m terminara.main > app.log 2>&1 &
+```
+or Windows (background with start)
+```bash
+python terminara\main.py > app.log 2>&1
+```
+
+## Pack to Executable
+
+1. **Prerequisites**
+    ```bash
+    pip install pyinstaller
+    ```
+
+2. **Run the Packaging Command**
+    ```bash
+    pyinstaller terminara.spec
+    ```
+After packaging is complete, the executable will be located in the `dist` directory

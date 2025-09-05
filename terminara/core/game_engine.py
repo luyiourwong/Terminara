@@ -1,6 +1,6 @@
 from typing import List
 
-from objects.scenario import Scenario
+from terminara.objects.scenario import Scenario
 
 
 class GameEngine:

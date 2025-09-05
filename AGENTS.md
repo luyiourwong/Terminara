@@ -3,9 +3,31 @@
 A terminal-based ai simulation game.
 
 ## Usage
-This is a long-live program, so if you want to test it, use this command instead:
+### Method 1: Install as package (Recommended)
 ```bash
-python main.py > app.log 2>&1 &
+pip install -e .
+```
+then run the game with:
+```bash
+terminara
+```
+
+### Method 2: Direct execution
+Cross-platform way
+```bash
+python -m terminara.main
+```
+or
+```bash
+python terminara/main.py
+```
+
+### Method 3: Background execution for testing
+This is a long-live program, so if you want to test it, you can use this command instead:
+
+Unix/Linux/macOS
+```bash
+python -m terminara.main > app.log 2>&1 &
 ```
 
 ## Objective
@@ -28,15 +50,16 @@ terminara/
 |   `-- scenario.py       # Defines the data structure for game scenarios
 |-- screens/
 |   |-- __init__.py
-|   |-- main_menu_screen.py
-|   |-- new_game_screen.py
-|   |-- game_view_screen.py
-|   |-- details_view_screen.py
-|   `-- options_menu_screen.py
+|   |-- main_menu_screen.py      # Main menu screen (default entry view)
+|   |-- new_game_screen.py       # Screen for configuring new game settings
+|   |-- game_view_screen.py      # Main gameplay screen
+|   |-- details_view_screen.py   # Screen for displaying player details
+|   `-- options_menu_screen.py   # Screen for game options
 |-- data/
 |   |-- saves/            # Directory for saved game files
 |   `-- worlds/           # Directory for world setting files
-`-- requirements.txt
+|-- requirements.txt
+`-- terminara.spec        # PyInstaller spec file
 ```
 
 ## Key Functional

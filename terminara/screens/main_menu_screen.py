@@ -3,7 +3,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.widgets import Button
 
-from screens.new_game_screen import NewGameScreen
+from terminara.screens.new_game_screen import NewGameScreen
 
 
 class MainMenuScreen(Screen):

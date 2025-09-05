@@ -4,10 +4,10 @@ from textual.screen import Screen
 from textual.widgets import Button, Static
 from textual.containers import Vertical, Horizontal
 
-from core.game_engine import GameEngine
-from objects.scenario import Scenario
-from screens.details_view_screen import DetailsViewScreen
-from screens.options_menu_screen import OptionsMenuScreen
+from terminara.core.game_engine import GameEngine
+from terminara.objects.scenario import Scenario
+from terminara.screens.details_view_screen import DetailsViewScreen
+from terminara.screens.options_menu_screen import OptionsMenuScreen
 
 
 class GameViewScreen(Screen):

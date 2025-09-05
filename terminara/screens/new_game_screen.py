@@ -2,7 +2,7 @@ from textual.app import ComposeResult
 from textual.screen import Screen
 from textual.widgets import Button
 
-from screens.game_view_screen import GameViewScreen
+from terminara.screens.game_view_screen import GameViewScreen
 
 
 class NewGameScreen(Screen):
