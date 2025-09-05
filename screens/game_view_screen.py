@@ -52,10 +52,14 @@ class GameViewScreen(Screen):
     def _update_scenario_view(self, scenario: Scenario) -> None:
         """Update the scenario text and choice buttons."""
         self.query_one("#scenario_text", Static).update(scenario.text)
-        self.query_one("#choice_1", Button).label = scenario.choices[0]
-        self.query_one("#choice_2", Button).label = scenario.choices[1]
-        self.query_one("#choice_3", Button).label = scenario.choices[2]
-        self.query_one("#choice_4", Button).label = scenario.choices[3]
+        buttons = self.query("Vertical#choice_buttons > Button")
+        for i, button in enumerate(buttons):
+            if i < len(scenario.choices):
+                button.label = scenario.choices[i]
+                button.display = True
+            else:
+                button.label = ""
+                button.display = False
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button press events."""

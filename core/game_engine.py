@@ -18,10 +18,8 @@ class GameEngine:
             {
                 "text": "You step into the forest. A thick fog surrounds you, and the path ahead is barely visible. You hear a twig snap nearby.",
                 "choices": [
-                    "1. Investigate the sound",
-                    "2. Stay still and listen",
-                    "3. Continue cautiously on the path",
-                    "4. Retreat from the forest",
+                    "1. Continue cautiously on the path",
+                    "2. Retreat from the forest",
                 ],
             },
         ]
