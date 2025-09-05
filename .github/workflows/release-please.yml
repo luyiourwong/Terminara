@@ -27,7 +27,6 @@ jobs:
   build-and-upload:
     runs-on: ${{ matrix.os }}
     needs: release-please
-    if: ${{ needs.release-please.outputs.tag_name != '' }}
     strategy:
       matrix:
         os: [ windows-latest, ubuntu-latest ]
