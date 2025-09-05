@@ -38,7 +38,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller main.spec
+          pyinstaller terminara.spec
 
       - name: Get latest release
         id: get_release
