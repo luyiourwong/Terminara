@@ -1,5 +1,5 @@
 import pathlib
-from typing import Optional
+from typing import Optional, cast
 
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -7,8 +7,8 @@ from textual.screen import Screen
 from textual.widgets import Button, Select, Static
 
 from terminara.core.world_handler import load_world
+from terminara.main import TerminalApp
 from terminara.objects.world_settings import WorldSettings
-from terminara.screens.game_view_screen import GameViewScreen
 
 
 class NewGameScreen(Screen):
@@ -85,7 +85,8 @@ class NewGameScreen(Screen):
     def action_start_game(self) -> None:
         """Handle button press events."""
         if self.world_settings:
-            self.app.push_screen(GameViewScreen(world_settings=self.world_settings))
+            terminal_app = cast(TerminalApp, self.app)
+            terminal_app.start_game(world_settings=self.world_settings)
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
