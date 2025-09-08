@@ -7,6 +7,7 @@ from abc import ABC
 class GameVariable(ABC):
     """Represents a variable in the game."""
     description: str
+    value: Any
 
 
 @dataclass
