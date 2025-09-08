@@ -1,10 +1,11 @@
 from typing import List
-
+from terminara.objects.world_settings import WorldSettings
 from terminara.objects.scenario import Scenario
 
 
 class GameEngine:
-    def __init__(self):
+    def __init__(self, world_settings: WorldSettings):
+        self.world_settings = world_settings
         scenarios_data = [
             {
                 "text": "You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
