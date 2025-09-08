@@ -30,6 +30,11 @@ Unix/Linux/macOS
 python -m terminara.main > app.log 2>&1 &
 ```
 
+### Extra: Unit testing
+```bash
+python -m unittest discover -v
+```
+
 ## Objective
 
 To create a terminal-based AI simulation game using Python and the `textual` library. The game features an AI-driven storyteller that generates scenarios and choices for the player within a customizable world setting.
@@ -60,6 +65,9 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   `-- data/
 |       |-- saves/            # Directory for saved game files
 |       `-- worlds/           # Directory for world setting files
+|-- tests/
+|   |-- __init__.py
+|   `-- test_abc.py       # Unit test files
 |-- requirements.txt
 |-- pyproject.toml        # Python project configuration
 `-- terminara.spec        # PyInstaller spec file

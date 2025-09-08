@@ -1,0 +1,55 @@
+from dataclasses import dataclass, field
+from typing import Dict, Any, Union
+from abc import ABC
+
+
+@dataclass
+class GameVariable(ABC):
+    """Represents a variable in the game."""
+    description: str
+
+
+@dataclass
+class NumericVariable(GameVariable):
+    """Represents a numeric variable in the game."""
+    value: Union[int, float]
+    min_value: Union[int, float, None] = None
+    max_value: Union[int, float, None] = None
+
+
+@dataclass
+class TextVariable(GameVariable):
+    """Represents a text variable in the game."""
+    value: str
+
+
+@dataclass
+class Item:
+    """Represents an item in the game."""
+    name: str
+    description: str
+    attributes: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class AiPrompt:
+    """Represents the AI prompt in the game."""
+    system: str
+    prompt: str
+    lore: Dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
+class WorldInfo:
+    """Represents the world information of the game."""
+    name: str
+    description: str
+
+
+@dataclass
+class WorldSettings:
+    """Represents the world settings of the game."""
+    world: WorldInfo = field(default_factory=WorldInfo)
+    ai: AiPrompt = field(default_factory=AiPrompt)
+    variables: Dict[str, GameVariable] = field(default_factory=dict)
+    items: Dict[str, Item] = field(default_factory=dict)

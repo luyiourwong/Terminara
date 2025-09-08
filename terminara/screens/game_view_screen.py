@@ -6,6 +6,7 @@ from textual.containers import Vertical, Horizontal
 
 from terminara.core.game_engine import GameEngine
 from terminara.objects.scenario import Scenario
+from terminara.objects.world_settings import WorldSettings
 from terminara.screens.details_view_screen import DetailsViewScreen
 from terminara.screens.options_menu_screen import OptionsMenuScreen
 
@@ -25,9 +26,10 @@ class GameViewScreen(Screen):
         Binding("enter", "press_selected", "Activate selected button"),
     ]
 
-    def __init__(self) -> None:
+    def __init__(self, world_settings: WorldSettings) -> None:
         super().__init__()
-        self.game_engine = GameEngine()
+        self.world_settings = world_settings
+        self.game_engine = GameEngine(world_settings=self.world_settings)
 
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
