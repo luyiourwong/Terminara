@@ -41,6 +41,15 @@ class StateManager:
         """
         self._variables[name] = value
 
+    def get_all_variables(self) -> Dict[str, Any]:
+        """
+        Gets the entire variables dictionary.
+
+        Returns:
+            A dictionary containing all game variables.
+        """
+        return self._variables
+
     def get_inventory(self) -> Dict[str, int]:
         """
         Gets the player's current inventory.
