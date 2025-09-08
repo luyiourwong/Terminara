@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Terminara World Settings",
+  "description": "Schema for validating Terminara world setting files.",
+  "type": "object",
+  "properties": {
+    "world": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the world."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the world."
+        }
+      },
+      "required": [
+        "name",
+        "description"
+      ]
+    },
+    "ai": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string",
+          "description": "The system prompt for the AI."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The main user prompt for the AI."
+        },
+        "lore": {
+          "type": "object",
+          "description": "A dictionary of lore details.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "system",
+        "prompt"
+      ]
+    },
+    "variables": {
+      "type": "object",
+      "description": "Game variables, keyed by variable name.",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/numericVariable"
+          },
+          {
+            "$ref": "#/definitions/textVariable"
+          }
+        ]
+      }
+    },
+    "items": {
+      "type": "object",
+      "description": "A registry of all available items in the world, keyed by item ID.",
+      "additionalProperties": {
+        "$ref": "#/definitions/item"
+      }
+    }
+  },
+  "required": [
+    "world",
+    "ai",
+    "variables",
+    "items"
+  ],
+  "definitions": {
+    "item": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "description"
+      ]
+    },
+    "numericVariable": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "numeric"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "min_value": {
+          "type": "number"
+        },
+        "max_value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "description",
+        "value"
+      ]
+    },
+    "textVariable": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "text"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "description",
+        "value"
+      ]
+    }
+  }
+}

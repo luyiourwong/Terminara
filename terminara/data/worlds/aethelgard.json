@@ -1,0 +1,36 @@
+{
+  "world": {
+    "name": "aethelgard",
+    "description": "A world of myth."
+  },
+  "ai": {
+    "system": "This is aethelgard, a world of myth.",
+    "prompt": "You are the god of the world, generate a story and choice(1~4) for the player.",
+    "lore": {
+      "leveling": "Player can level up by doing something brave."
+    }
+  },
+  "variables": {
+    "hp": {
+      "type": "numeric",
+      "description": "Player's health, value 0 will result in a game over.",
+      "value": 100,
+      "min_value": 0,
+      "max_value": 100
+    },
+    "level": {
+      "type": "numeric",
+      "description": "Player's level, describes the player's strength.",
+      "value": 1
+    }
+  },
+  "items": {
+    "Potion1": {
+      "name": "Heal Potion",
+      "description": "Potion to heal.",
+      "attributes": {
+        "hp": 20
+      }
+    }
+  }
+}
