@@ -19,16 +19,13 @@ A terminal-based ai simulation game.
 
 3.  **Install the dependencies:**
     ```bash
-    pip install -r requirements.txt
+    pip install -e .
     ```
 
 ## Usage
 
-### Method 1: Install as package (Recommended)
-```bash
-pip install -e .
-```
-then run the game with:
+### Method 1: Using the installed command (Recommended)
+After installation, run the game with:
 ```bash
 terminara
 ```

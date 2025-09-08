@@ -37,28 +37,31 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 ## Structure
 
 ```
-terminara/
-|-- main.py             # Application entry point
-|-- core/
-|   |-- __init__.py
-|   |-- game_engine.py    # Main game loop and logic
-|   |-- ai_narrator.py    # Handles interaction with the AI model
-|   |-- state_manager.py  # Manages game state, saving, and loading
-|   `-- world_handler.py  # Handles importing/exporting of world settings
-|-- objects/
-|   |-- __init__.py
-|   `-- scenario.py       # Defines the data structure for game scenarios
-|-- screens/
-|   |-- __init__.py
-|   |-- main_menu_screen.py      # Main menu screen (default entry view)
-|   |-- new_game_screen.py       # Screen for configuring new game settings
-|   |-- game_view_screen.py      # Main gameplay screen
-|   |-- details_view_screen.py   # Screen for displaying player details
-|   `-- options_menu_screen.py   # Screen for game options
-|-- data/
-|   |-- saves/            # Directory for saved game files
-|   `-- worlds/           # Directory for world setting files
+.
+|-- terminara/
+|   |-- __init__.py         # Auto versioning via Release Please
+|   |-- main.py             # Application entry point
+|   |-- core/
+|   |   |-- __init__.py
+|   |   |-- game_engine.py    # Main game loop and logic
+|   |   |-- ai_narrator.py    # Handles interaction with the AI model
+|   |   |-- state_manager.py  # Manages game state, saving, and loading
+|   |   `-- world_handler.py  # Handles importing/exporting of world settings
+|   |-- objects/
+|   |   |-- __init__.py
+|   |   `-- scenario.py       # Defines the data structure for game scenarios
+|   |-- screens/
+|   |   |-- __init__.py
+|   |   |-- main_menu_screen.py      # Main menu screen (default entry view)
+|   |   |-- new_game_screen.py       # Screen for configuring new game settings
+|   |   |-- game_view_screen.py      # Main gameplay screen
+|   |   |-- details_view_screen.py   # Screen for displaying player details
+|   |   `-- options_menu_screen.py   # Screen for game options
+|   `-- data/
+|       |-- saves/            # Directory for saved game files
+|       `-- worlds/           # Directory for world setting files
 |-- requirements.txt
+|-- pyproject.toml        # Python project configuration
 `-- terminara.spec        # PyInstaller spec file
 ```
 
