@@ -65,3 +65,10 @@ python terminara\main.py > app.log 2>&1
     pyinstaller terminara.spec
     ```
 After packaging is complete, the executable will be located in the `dist` directory
+
+## Development
+
+### Unit testing
+```bash
+python -m unittest discover -v
+```
