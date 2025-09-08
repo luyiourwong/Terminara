@@ -1,11 +1,6 @@
 import unittest
 from pathlib import Path
 import json
-import sys
-
-# Add the project root to the Python path
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
 
 from terminara.core.world_handler import load_world
 from terminara.objects.world_settings import (
