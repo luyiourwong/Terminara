@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Terminara Save File",
+  "description": "Schema for a Terminara save file.",
+  "type": "object",
+  "properties": {
+    "world": {
+      "description": "The filename of the world settings file used for this game.",
+      "type": "string"
+    },
+    "game_state": {
+      "description": "The current game state.",
+      "type": "object",
+      "properties": {
+        "variables": {
+          "description": "A dictionary of game variables.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "inventory": {
+          "description": "A dictionary representing the player's inventory.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "variables",
+        "inventory"
+      ]
+    }
+  },
+  "required": [
+    "world",
+    "game_state"
+  ]
+}

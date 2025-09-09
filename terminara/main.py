@@ -20,6 +20,7 @@ def get_resource_path(relative_path):
 class TerminalApp(App):
     CSS_PATH = get_resource_path(os.path.join("screens", "styles.tcss"))
 
+    world_settings_file: Optional[str] = None
     game_engine: Optional[GameEngine] = None
 
     def on_mount(self) -> None:

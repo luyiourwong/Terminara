@@ -63,6 +63,7 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   |   |-- details_view_screen.py   # Screen for displaying player details
 |   |   `-- options_menu_screen.py   # Screen for game options
 |   `-- data/
+|       |-- schema/           # Json schema files for world settings and saves
 |       |-- saves/            # Directory for saved game files
 |       `-- worlds/           # Directory for world setting files
 |-- tests/

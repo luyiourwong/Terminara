@@ -3,6 +3,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.widgets import Button
 
+
 class OptionsMenuScreen(Screen):
     """The options menu screen for the game."""
 
@@ -34,13 +35,14 @@ class OptionsMenuScreen(Screen):
         if event.button.id == "return":
             self.app.pop_screen()
         elif event.button.id == "save_game":
-            # TODO: Implement functionality
-            pass
+            from terminara.screens.save_game_screen import SaveGameScreen
+            self.app.push_screen(SaveGameScreen())
         elif event.button.id == "load_game":
-            # TODO: Implement functionality
-            pass
+            from terminara.screens.load_game_screen import LoadGameScreen
+            self.app.push_screen(LoadGameScreen())
         elif event.button.id == "title":
             from terminara.screens.main_menu_screen import MainMenuScreen
+            self.app.pop_screen()
             self.app.switch_screen(MainMenuScreen())
         elif event.button.id == "exit":
             self.app.exit()

@@ -36,7 +36,7 @@ class NewGameScreen(Screen):
         yield Static("Game Variables: ", id="game_variables")
         yield Static("Items: ", id="items")
         yield Static("---")
-        yield Button("1. Load World", id="load_world")
+        yield Button("1. Import World", id="load_world")
         yield Button("2. Start Game", id="start_game", disabled=True)
 
     def on_mount(self) -> None:
@@ -57,7 +57,7 @@ class NewGameScreen(Screen):
     def action_load_world(self) -> None:
         """Handle the load world button press."""
         world_name = self.query_one(Select).value
-        if world_name:
+        if world_name and world_name is not Select.BLANK:
             self.world_settings = load_world(str(world_name))
             self.query_one("#world_name", Static).update(
                 f"World Name: {self.world_settings.world.name}"
@@ -81,6 +81,8 @@ class NewGameScreen(Screen):
                 f"Items ({len(self.world_settings.items)}): {', '.join(self.world_settings.items.keys())}"
             )
             self.query_one("#start_game", Button).disabled = False
+            terminal_app = cast(TerminalApp, self.app)
+            terminal_app.world_settings_file = str(world_name)
 
     def action_start_game(self) -> None:
         """Handle button press events."""
