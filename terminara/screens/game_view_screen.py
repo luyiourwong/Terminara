@@ -1,12 +1,13 @@
+from typing import cast
+
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
 from textual.widgets import Button, Static
 from textual.containers import Vertical, Horizontal
 
-from terminara.core.game_engine import GameEngine
+from terminara.main import TerminalApp
 from terminara.objects.scenario import Scenario
-from terminara.objects.world_settings import WorldSettings
 from terminara.screens.details_view_screen import DetailsViewScreen
 from terminara.screens.options_menu_screen import OptionsMenuScreen
 
@@ -26,10 +27,8 @@ class GameViewScreen(Screen):
         Binding("enter", "press_selected", "Activate selected button"),
     ]
 
-    def __init__(self, world_settings: WorldSettings) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.world_settings = world_settings
-        self.game_engine = GameEngine(world_settings=self.world_settings)
 
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
@@ -47,7 +46,8 @@ class GameViewScreen(Screen):
 
     def on_mount(self) -> None:
         """Set initial focus and load the first scenario."""
-        initial_scenario = self.game_engine.get_initial_scenario()
+        terminal_app = cast(TerminalApp, self.app)
+        initial_scenario = terminal_app.game_engine.get_initial_scenario()
         self._update_scenario_view(initial_scenario)
         self.query_one("#choice_1").focus()
 
@@ -58,7 +58,7 @@ class GameViewScreen(Screen):
         num_choices = min(len(scenario.choices), 4)
         for i, button in enumerate(buttons):
             if i < num_choices:
-                button.label = scenario.choices[i]
+                button.label = scenario.choices[i].text
                 button.display = True
             else:
                 button.label = ""
@@ -72,7 +72,8 @@ class GameViewScreen(Screen):
             self.app.push_screen(OptionsMenuScreen())
         elif event.button.id.startswith("choice_"):
             choice_number = int(event.button.id.split("_")[1])
-            next_scenario = self.game_engine.get_next_scenario(choice_number)
+            terminal_app = cast(TerminalApp, self.app)
+            next_scenario = terminal_app.game_engine.get_next_scenario(choice_number)
             self._update_scenario_view(next_scenario)
 
     def action_show_details(self) -> None:
