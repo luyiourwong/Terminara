@@ -58,7 +58,7 @@ class GameViewScreen(Screen):
         num_choices = min(len(scenario.choices), 4)
         for i, button in enumerate(buttons):
             if i < num_choices:
-                button.label = scenario.choices[i]
+                button.label = scenario.choices[i].text
                 button.display = True
             else:
                 button.label = ""

@@ -41,6 +41,19 @@ class StateManager:
         """
         self._variables[name] = value
 
+    def modify_variable(self, name: str, value: Any):
+        """
+        Modifies the value of a game variable.
+
+        Args:
+            name: The name of the variable.
+            value: The amount to modify the variable by.
+        """
+        if isinstance(self._variables[name], int):
+            self._variables[name] += int(value)
+        elif isinstance(self._variables[name], str):
+            self._variables[name] = value
+
     def get_all_variables(self) -> Dict[str, Any]:
         """
         Gets the entire variables dictionary.
