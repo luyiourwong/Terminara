@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5](https://github.com/luyiourwong/Terminara/compare/v0.2.4...v0.2.5) (2025-09-10)
+
+
+### Bug Fixes
+
+* workflow package path ([dee42af](https://github.com/luyiourwong/Terminara/commit/dee42af3a3b1e57f0d7f5aeff4f19e3e64714689))
+
 ## [0.2.4](https://github.com/luyiourwong/Terminara/compare/v0.2.3...v0.2.4) (2025-09-10)
 
 
