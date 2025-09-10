@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/luyiourwong/Terminara/compare/v0.2.1...v0.2.2) (2025-09-10)
+
+
+### Bug Fixes
+
+* add dispatch action and full package release ([55d1e28](https://github.com/luyiourwong/Terminara/commit/55d1e2872d80038afc40748463c843a899ec232c))
+* update path for packaged using ([3d6acb8](https://github.com/luyiourwong/Terminara/commit/3d6acb8a3dfbb587da680f7b5931a2968f203a22))
+
 ## [0.2.1](https://github.com/luyiourwong/Terminara/compare/v0.2.0...v0.2.1) (2025-09-10)
 
 
