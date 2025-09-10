@@ -45,7 +45,7 @@ class TerminalApp(App):
         except KeyError:
             # Screen doesn't exist, create and push it
             from terminara.screens.game_view_screen import GameViewScreen
-            self.app.switch_screen(GameViewScreen())
+            self.switch_screen(GameViewScreen())
 
 
 def main():

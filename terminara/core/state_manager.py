@@ -53,7 +53,7 @@ class StateManager:
             value: The amount to modify the variable by.
         """
         if isinstance(self._variables.get(name), int):
-            self._variables[name] += int(value)
+            self._variables[name] = self._variables.get(name, 0) + int(value)
         elif isinstance(self._variables.get(name), str):
             self._variables[name] = value
 

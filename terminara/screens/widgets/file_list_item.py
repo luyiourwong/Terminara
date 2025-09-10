@@ -25,4 +25,4 @@ class FileListItem(ListItem):
         """Create the content of the list item."""
         with Horizontal():
             yield Label(self.file_name, classes="file-name")
-            yield Label(f"  ---  2{self.mod_time_str}", classes="file-mod-time")
+            yield Label(f"  ---  {self.mod_time_str}", classes="file-mod-time")
