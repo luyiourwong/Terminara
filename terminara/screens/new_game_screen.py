@@ -1,3 +1,4 @@
+import os
 import pathlib
 from typing import Optional, cast
 
@@ -41,7 +42,7 @@ class NewGameScreen(Screen):
 
     def on_mount(self) -> None:
         """Populate the select widget with world files."""
-        worlds_path = pathlib.Path(__file__).parent.parent / "data" / "worlds"
+        worlds_path = pathlib.Path(os.getcwd())/ "terminara" / "data" / "worlds"
         world_files = [
             f.stem for f in worlds_path.iterdir() if f.suffix == ".json" and f.stem != "world_schema"
         ]

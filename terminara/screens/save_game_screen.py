@@ -13,7 +13,7 @@ from textual.widgets import ListView, Button, Static
 from terminara.main import TerminalApp
 from terminara.screens.widgets.file_list_item import FileListItem
 
-SAVES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "saves")
+SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
 
 
 class SaveGameScreen(ModalScreen):
