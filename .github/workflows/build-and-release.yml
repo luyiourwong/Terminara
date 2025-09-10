@@ -15,11 +15,11 @@ jobs:
         os: [ windows-latest, ubuntu-latest ]
         include:
           - os: windows-latest
-            output_name: terminara.exe
-            archive_name: terminara-windows-full.zip
+            output_name: terminara_windows_${{ github.event.release.tag_name }}.exe
+            archive_name: terminara-windows-full-${{ github.event.release.tag_name }}.zip
           - os: ubuntu-latest
-            output_name: terminara
-            archive_name: terminara-linux-full.zip
+            output_name: terminara_linux_${{ github.event.release.tag_name }}
+            archive_name: terminara-linux-full-${{ github.event.release.tag_name }}.zip
 
     steps:
       - name: Checkout repository
@@ -39,25 +39,35 @@ jobs:
         run: |
           pyinstaller terminara.spec
 
+      - name: Rename executable (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          move dist\terminara.exe dist\${{ matrix.output_name }}
+
+      - name: Rename executable (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mv dist/terminara dist/${{ matrix.output_name }}
+
       - name: Create full package (Windows)
         if: matrix.os == 'windows-latest'
         run: |
           rmdir /S /Q full-package
           mkdir full-package
-          copy dist\terminara.exe full-package\
+          copy dist\${{ matrix.output_name }} full-package\
           mkdir full-package\terminara\data
           xcopy /E /I terminara\data\* full-package\terminara\data\
-          powershell Compress-Archive -Path full-package\* -DestinationPath terminara-windows-full.zip
+          powershell Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
 
       - name: Create full package (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
           rm -rf full-package
           mkdir -p full-package
-          cp dist/terminara full-package/
+          cp dist/${{ matrix.output_name }} full-package/
           mkdir -p full-package/terminara/data
           cp -r terminara/data/* full-package/terminara/data/
-          zip -r terminara-linux-full.zip full-package/*
+          zip -r ${{ matrix.archive_name }} full-package/*
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
