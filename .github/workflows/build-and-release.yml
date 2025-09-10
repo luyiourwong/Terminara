@@ -42,18 +42,22 @@ jobs:
       - name: Create full package (Windows)
         if: matrix.os == 'windows-latest'
         run: |
+          rmdir /S /Q full-package
+          mkdir full-package
+          copy dist\terminara.exe full-package\
           mkdir full-package\terminara\data
-          copy dist\${{ matrix.output_name }} full-package\
-          xcopy /E /I terminara\data full-package\terminara\data\
-          powershell Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
+          xcopy /E /I terminara\data\* full-package\terminara\data\
+          powershell Compress-Archive -Path full-package\* -DestinationPath terminara-windows-full.zip
 
       - name: Create full package (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
+          rm -rf full-package
+          mkdir -p full-package
+          cp dist/terminara full-package/
           mkdir -p full-package/terminara/data
-          cp dist/${{ matrix.output_name }} full-package/
-          cp -r terminara/data full-package/terminara/
-          zip -r ${{ matrix.archive_name }} full-package/*
+          cp -r terminara/data/* full-package/terminara/data/
+          zip -r terminara-linux-full.zip full-package/*
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
