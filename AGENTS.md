@@ -54,6 +54,8 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   |   `-- world_handler.py  # Handles importing/exporting of world settings
 |   |-- objects/
 |   |   |-- __init__.py
+|   |   |-- game_state.py     # Defines the data structure for game state
+|   |   |-- world_settings.py # Defines the data structure for world settings
 |   |   `-- scenario.py       # Defines the data structure for game scenarios
 |   |-- screens/
 |   |   |-- __init__.py
@@ -61,15 +63,22 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   |   |-- new_game_screen.py       # Screen for configuring new game settings
 |   |   |-- game_view_screen.py      # Main gameplay screen
 |   |   |-- details_view_screen.py   # Screen for displaying player details
-|   |   `-- options_menu_screen.py   # Screen for game options
+|   |   |-- options_menu_screen.py   # Screen for game options
+|   |   |-- load_game_screen.py      # Screen for loading saved game files
+|   |   |-- save_game_screen.py      # Screen for saving saved game files
+|   |   |-- styles.tcss              # Styles for the screens
+|   |   `-- widgets/
+|   |       |-- __init__.py
+|   |       `-- file_list_item.py    # Widget for displaying save files in a list
 |   `-- data/
 |       |-- schema/           # Json schema files for world settings and saves
 |       |-- saves/            # Directory for saved game files
 |       `-- worlds/           # Directory for world setting files
 |-- tests/
 |   |-- __init__.py
-|   `-- test_abc.py       # Unit test files
-|-- requirements.txt
+|   `-- test_core/
+|       |-- __init__.py
+|       `-- test_world_handler.py       # Unit test files
 |-- pyproject.toml        # Python project configuration
 `-- terminara.spec        # PyInstaller spec file
 ```
