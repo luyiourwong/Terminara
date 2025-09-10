@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/luyiourwong/Terminara/compare/v0.2.0...v0.2.1) (2025-09-10)
+
+
+### Bug Fixes
+
+* update dependency installation in CI workflow ([50f96a5](https://github.com/luyiourwong/Terminara/commit/50f96a51c574041d4fd36f81d003c52c83df0f36))
+
 ## [0.2.0](https://github.com/luyiourwong/Terminara/compare/v0.1.0...v0.2.0) (2025-09-10)
 
 
