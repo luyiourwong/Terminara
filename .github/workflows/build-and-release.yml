@@ -52,12 +52,13 @@ jobs:
       - name: Create full package (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          rmdir /S /Q full-package
-          mkdir full-package
-          copy dist\${{ matrix.output_name }} full-package\
-          mkdir full-package\terminara\data
-          xcopy /E /I terminara\data\* full-package\terminara\data\
-          powershell Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
+          Remove-Item -Recurse -Force full-package
+          New-Item -Type Directory -Path full-package
+          Copy-Item dist\${{ matrix.output_name }} full-package\
+          New-Item -Type Directory -Path full-package\terminara\data
+          Copy-Item terminara\data\* full-package\terminara\data\ -Recurse
+          Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
+        shell: pwsh
 
       - name: Create full package (Linux)
         if: matrix.os == 'ubuntu-latest'
