@@ -1,3 +1,4 @@
+import dataclasses
 import json
 import os
 from datetime import datetime
@@ -91,8 +92,8 @@ class SaveGameScreen(ModalScreen):
             file_name = f"{terminal_app.world_settings_file}_{timestamp}.json"
 
         save_data = {
-            "world": f"{terminal_app.world_settings_file}.json",
-            "game_state": game_state
+            "world": terminal_app.world_settings_file,
+            "game_state": dataclasses.asdict(game_state)
         }
         file_path = os.path.join(SAVES_DIR, file_name)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)

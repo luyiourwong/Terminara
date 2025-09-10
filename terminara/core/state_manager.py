@@ -1,6 +1,9 @@
 from typing import Dict, Any
 
+from terminara.objects.game_state import GameState
 from terminara.objects.world_settings import WorldSettings
+
+
 
 
 class StateManager:
@@ -100,21 +103,18 @@ class StateManager:
         else:
             self._inventory.pop(item_name, None)
 
-    def save_game(self) -> Dict[str, Any]:
+    def save_game(self) -> GameState:
         """
         Saves the current game state to a file.
         """
-        return {
-            "variables": self._variables,
-            "inventory": self._inventory,
-        }
+        return GameState(variables=self._variables, inventory=self._inventory)
 
-    def load_game(self, game_state: Dict[str, Any]):
+    def load_game(self, game_state: GameState):
         """
         Loads the game state from a file.
 
         Args:
             game_state: The game state to load.
         """
-        self._variables = game_state["variables"]
-        self._inventory = game_state["inventory"]
+        self._variables = game_state.variables
+        self._inventory = game_state.inventory

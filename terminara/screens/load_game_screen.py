@@ -1,4 +1,6 @@
+import json
 import os
+from typing import cast
 
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -6,6 +8,8 @@ from textual.containers import Vertical
 from textual.screen import ModalScreen
 from textual.widgets import ListView, Static, Button
 
+from terminara.main import TerminalApp
+from terminara.objects.game_state import GameState
 from terminara.screens.widgets.file_list_item import FileListItem
 
 SAVES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "saves")
@@ -65,12 +69,42 @@ class LoadGameScreen(ModalScreen):
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         """Handle a save file being selected."""
         if isinstance(event.item, FileListItem):
-            self.dismiss(event.item.file_path)
+            self.load_file(event.item.file_path)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle the 'Save as New' button being pressed."""
         if event.button.id == "return":
             self.app.pop_screen()
+
+    def load_file(self, file_name: str) -> None:
+        """Load a save file."""
+        terminal_app = cast(TerminalApp, self.app)
+        file_path = os.path.join(SAVES_DIR, file_name)
+        if not os.path.exists(file_path):
+            print(f"Error: Save file '{file_path}' not found.")
+            return
+        with open(file_path, "r") as f:
+            save_data = json.load(f)
+
+        world_name = save_data.get("world")
+        game_state_dict = save_data.get("game_state")
+        if not world_name or game_state_dict is None:
+            print(f"Error: Invalid save file format in '{file_name}'. Missing 'world' or 'game_state'.")
+            return
+        # Loading World Settings
+        from terminara.core.world_handler import load_world
+        world_settings = load_world(world_name)
+        try:
+            game_state = GameState(
+                variables=game_state_dict.get('variables', {}),
+                inventory=game_state_dict.get('inventory', {})
+            )
+        except Exception as e:
+            print(f"Error: Failed to reconstruct GameState from loaded data: {e}")
+            return
+        # Set the current world setting file in the application, consistent with `action_load_world`
+        terminal_app.world_settings_file = world_name
+        terminal_app.load_game(world_settings, game_state)
 
     def action_press_button(self, button_id: str) -> None:
         """Press a button by its ID."""
