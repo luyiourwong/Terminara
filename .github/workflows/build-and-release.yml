@@ -2,7 +2,12 @@ name: build-and-release
 
 on:
   release:
-    types: [published]
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build'
+        required: true
 
 permissions:
   contents: write
@@ -16,8 +21,10 @@ jobs:
         include:
           - os: windows-latest
             output_name: terminara.exe
+            archive_name: terminara-windows-full.zip
           - os: ubuntu-latest
             output_name: terminara
+            archive_name: terminara-linux-full.zip
 
     steps:
       - name: Checkout repository
@@ -37,8 +44,28 @@ jobs:
         run: |
           pyinstaller terminara.spec
 
+      - name: Create full package (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir full-package
+          mkdir full-package\terminara
+          copy dist\${{ matrix.output_name }} full-package\
+          xcopy /E /I terminara\data full-package\terminara\data\
+          powershell Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
+
+      - name: Create full package (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mkdir full-package
+          mkdir full-package/terminara
+          cp dist/${{ matrix.output_name }} full-package/
+          cp -r terminara/data full-package/terminara/data/
+          zip -r ${{ matrix.archive_name }} full-package/*
+
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/${{ matrix.output_name }}
+          files: |
+            dist/${{ matrix.output_name }}
+            ${{ matrix.archive_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
