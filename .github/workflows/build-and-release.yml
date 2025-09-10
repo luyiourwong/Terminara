@@ -42,8 +42,7 @@ jobs:
       - name: Create full package (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          mkdir full-package
-          mkdir full-package\terminara
+          mkdir full-package\terminara\data
           copy dist\${{ matrix.output_name }} full-package\
           xcopy /E /I terminara\data full-package\terminara\data\
           powershell Compress-Archive -Path full-package\* -DestinationPath ${{ matrix.archive_name }}
@@ -51,10 +50,9 @@ jobs:
       - name: Create full package (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          mkdir full-package
-          mkdir full-package/terminara
+          mkdir -p full-package/terminara/data
           cp dist/${{ matrix.output_name }} full-package/
-          cp -r terminara/data full-package/terminara/data/
+          cp -r terminara/data full-package/terminara/
           zip -r ${{ matrix.archive_name }} full-package/*
 
       - name: Upload Release Asset
