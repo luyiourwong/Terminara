@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/luyiourwong/Terminara/compare/v0.2.6...v0.2.7) (2025-09-10)
+
+
+### Bug Fixes
+
+* windows workflow package path ([f1efc1e](https://github.com/luyiourwong/Terminara/commit/f1efc1e0a2a452e3dca0d96a3acd6903058074d7))
+
 ## [0.2.6](https://github.com/luyiourwong/Terminara/compare/v0.2.5...v0.2.6) (2025-09-10)
 
 
