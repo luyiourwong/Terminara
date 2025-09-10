@@ -1,5 +1,6 @@
 import json
-from pathlib import Path
+import os
+import pathlib
 from typing import Union
 
 from terminara.objects.world_settings import (
@@ -9,7 +10,6 @@ from terminara.objects.world_settings import (
     Item,
     NumericVariable,
     TextVariable,
-    GameVariable,
 )
 
 
@@ -23,7 +23,7 @@ def load_world(world_name: str) -> WorldSettings:
     Returns:
         The loaded world settings.
     """
-    world_file = Path(__file__).parent.parent / "data" / "worlds" / f"{world_name}.json"
+    world_file = pathlib.Path(os.getcwd())/ "terminara" / "data" / "worlds" / f"{world_name}.json"
 
     with open(world_file, "r") as f:
         data = json.load(f)

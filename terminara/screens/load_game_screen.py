@@ -12,7 +12,7 @@ from terminara.main import TerminalApp
 from terminara.objects.game_state import GameState
 from terminara.screens.widgets.file_list_item import FileListItem
 
-SAVES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "saves")
+SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
 
 
 class LoadGameScreen(ModalScreen):
