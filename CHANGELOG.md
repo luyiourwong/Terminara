@@ -33,5 +33,3 @@
 
 * update build script in GitHub Actions to use correct spec file ([22e4ef1](https://github.com/luyiourwong/Terminara/commit/22e4ef12e953d24726b7116e656573c4020df06d))
 * update release-please workflow conditional for tag verification ([b63203a](https://github.com/luyiourwong/Terminara/commit/b63203a085d35c3617e6b1c0e14f92e9542c5209))
-
-## Terminara
