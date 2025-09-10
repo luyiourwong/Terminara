@@ -38,41 +38,68 @@ class SaveGameScreen(ModalScreen):
         yield Button("[S] Save new file", id="save-new-button")
         yield Button("[R] Return", id="return")
 
-    def on_mount(self) -> None:
-        """Populate the list of save files."""
+    def _refresh_save_list(self) -> None:
+        """Clears and repopulates the list of save files."""
         list_view = self.query_one(ListView)
+        list_view.clear()  # Clear existing items
+
         if not os.path.exists(SAVES_DIR):
             os.makedirs(SAVES_DIR)
 
+        # Get all json files with their modification times
+        save_files_with_times = []
         for filename in os.listdir(SAVES_DIR):
             if filename.endswith(".json"):
                 file_path = os.path.join(SAVES_DIR, filename)
-                list_view.append(FileListItem(file_path))
+                try:
+                    mod_time = os.path.getmtime(file_path)
+                    save_files_with_times.append((mod_time, file_path))
+                except FileNotFoundError:
+                    # Handle cases where file might be deleted between listdir and getmtime
+                    pass
+
+        # Sort files by modification time in descending order (newest first)
+        save_files_with_times.sort(key=lambda x: x[0], reverse=True)
+
+        for mod_time, file_path in save_files_with_times:
+            list_view.append(FileListItem(file_path))
+
+    def on_mount(self) -> None:
+        """Populate the list of save files."""
+        self._refresh_save_list()
         self.query_one("#save-new-button").focus()
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         """Handle a save file being selected for overwriting."""
         if isinstance(event.item, FileListItem):
-            self.dismiss(event.item.file_path)
+            self.save_file(event.item.file_path)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle the 'Save as New' button being pressed."""
         if event.button.id == "return":
             self.app.pop_screen()
         elif event.button.id == "save-new-button":
-            terminal_app = cast(TerminalApp, self.app)
-            game_state = terminal_app.game_engine.state_manager.save_game()
+            self.save_file(None)
+
+    def save_file(self, file_name: str | None) -> None:
+        terminal_app = cast(TerminalApp, self.app)
+        game_state = terminal_app.game_engine.state_manager.save_game()
+
+        # Generate a file name if none is provided
+        if not file_name:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             file_name = f"{terminal_app.world_settings_file}_{timestamp}.json"
-            save_data = {
-                "world": f"{terminal_app.world_settings_file}.json",
-                "game_state": game_state
-            }
-            file_path = os.path.join(SAVES_DIR, file_name)
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            with open(file_path, "w") as f:
-                json.dump(save_data, f, indent=4)
-            self.dismiss(file_path)
+
+        save_data = {
+            "world": f"{terminal_app.world_settings_file}.json",
+            "game_state": game_state
+        }
+        file_path = os.path.join(SAVES_DIR, file_name)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w") as f:
+            json.dump(save_data, f, indent=4)
+        self._refresh_save_list()
+        self.app.pop_screen()
 
     def action_press_button(self, button_id: str) -> None:
         """Press a button by its ID."""

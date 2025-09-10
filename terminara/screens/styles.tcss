@@ -42,3 +42,7 @@ Button:focus {
 #choice_buttons Button {
     margin-bottom: 0;
 }
+
+FileListItem {
+    height: 2;
+}

@@ -27,21 +27,40 @@ class LoadGameScreen(ModalScreen):
         """Create the content of the screen."""
         yield Static("Load Game (Press tab to switch focus)")
         yield Static("---")
-        with Vertical(id="load-game-container"):
-            yield ListView(id="load-game-list")
+        with Vertical(id="save-game-container"):
+            yield ListView(id="save-game-list")
         yield Static("---")
         yield Button("[R] Return", id="return")
 
-    def on_mount(self) -> None:
-        """Populate the list of save files."""
+    def _refresh_save_list(self) -> None:
+        """Clears and repopulates the list of save files."""
         list_view = self.query_one(ListView)
+        list_view.clear()  # Clear existing items
+
         if not os.path.exists(SAVES_DIR):
             os.makedirs(SAVES_DIR)
 
+        # Get all json files with their modification times
+        save_files_with_times = []
         for filename in os.listdir(SAVES_DIR):
             if filename.endswith(".json"):
                 file_path = os.path.join(SAVES_DIR, filename)
-                list_view.append(FileListItem(file_path))
+                try:
+                    mod_time = os.path.getmtime(file_path)
+                    save_files_with_times.append((mod_time, file_path))
+                except FileNotFoundError:
+                    # Handle cases where file might be deleted between listdir and getmtime
+                    pass
+
+        # Sort files by modification time in descending order (newest first)
+        save_files_with_times.sort(key=lambda x: x[0], reverse=True)
+
+        for mod_time, file_path in save_files_with_times:
+            list_view.append(FileListItem(file_path))
+
+    def on_mount(self) -> None:
+        """Populate the list of save files."""
+        self._refresh_save_list()
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         """Handle a save file being selected."""
