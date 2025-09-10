@@ -1,0 +1,123 @@
+import dataclasses
+import json
+import os
+from datetime import datetime
+from typing import cast
+
+from textual.app import ComposeResult
+from textual.binding import Binding
+from textual.containers import Vertical
+from textual.screen import ModalScreen
+from textual.widgets import ListView, Button, Static
+
+from terminara.main import TerminalApp
+from terminara.screens.widgets.file_list_item import FileListItem
+
+SAVES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "saves")
+
+
+class SaveGameScreen(ModalScreen):
+    """A modal screen for saving the current game."""
+
+    BINDINGS = [
+        Binding("r", "press_button('return')", "Return"),
+        Binding("s", "press_button('save-new-button')", "Quick Save"),
+        Binding("up", "focus_previous", "Select previous"),
+        Binding("down", "focus_next", "Select next"),
+        Binding("left", "press_button('return')", "Return"),
+        Binding("right", "press_selected", "Activate selected button"),
+        Binding("enter", "press_selected", "Activate selected button"),
+    ]
+
+    def compose(self) -> ComposeResult:
+        """Create the content of the screen."""
+        yield Static("Save Game (Press tab to switch focus)")
+        yield Static("---")
+        with Vertical(id="save-game-container"):
+            yield ListView(id="save-game-list")
+        yield Static("---")
+        yield Button("[S] Save new file", id="save-new-button")
+        yield Button("[R] Return", id="return")
+
+    def _refresh_save_list(self) -> None:
+        """Clears and repopulates the list of save files."""
+        list_view = self.query_one(ListView)
+        list_view.clear()  # Clear existing items
+
+        if not os.path.exists(SAVES_DIR):
+            os.makedirs(SAVES_DIR)
+
+        # Get all json files with their modification times
+        save_files_with_times = []
+        for filename in os.listdir(SAVES_DIR):
+            if filename.endswith(".json"):
+                file_path = os.path.join(SAVES_DIR, filename)
+                try:
+                    mod_time = os.path.getmtime(file_path)
+                    save_files_with_times.append((mod_time, file_path))
+                except FileNotFoundError:
+                    # Handle cases where file might be deleted between listdir and getmtime
+                    pass
+
+        # Sort files by modification time in descending order (newest first)
+        save_files_with_times.sort(key=lambda x: x[0], reverse=True)
+
+        for mod_time, file_path in save_files_with_times:
+            list_view.append(FileListItem(file_path))
+
+    def on_mount(self) -> None:
+        """Populate the list of save files."""
+        self._refresh_save_list()
+        self.query_one("#save-new-button").focus()
+
+    def on_list_view_selected(self, event: ListView.Selected) -> None:
+        """Handle a save file being selected for overwriting."""
+        if isinstance(event.item, FileListItem):
+            self.save_file(event.item.file_path)
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """Handle the 'Save as New' button being pressed."""
+        if event.button.id == "return":
+            self.app.pop_screen()
+        elif event.button.id == "save-new-button":
+            self.save_file(None)
+
+    def save_file(self, file_name: str | None) -> None:
+        terminal_app = cast(TerminalApp, self.app)
+        game_state = terminal_app.game_engine.state_manager.save_game()
+
+        # Generate a file name if none is provided
+        if not file_name:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            file_name = f"{terminal_app.world_settings_file}_{timestamp}.json"
+
+        save_data = {
+            "world": terminal_app.world_settings_file,
+            "game_state": dataclasses.asdict(game_state)
+        }
+        file_path = os.path.join(SAVES_DIR, file_name)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w") as f:
+            json.dump(save_data, f, indent=4)
+        self._refresh_save_list()
+        self.app.pop_screen()
+
+    def action_press_button(self, button_id: str) -> None:
+        """Press a button by its ID."""
+        button = self.query_one(f"#{button_id}", Button)
+        if not button.disabled:
+            button.press()
+
+    def action_focus_previous(self) -> None:
+        """Focus on the previous button."""
+        self.focus_previous(Button)
+
+    def action_focus_next(self) -> None:
+        """Focus on the next button."""
+        self.focus_next(Button)
+
+    def action_press_selected(self) -> None:
+        """Trigger the currently focused button."""
+        focused = self.app.focused
+        if isinstance(focused, Button) and not focused.disabled:
+            focused.press()

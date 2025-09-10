@@ -3,6 +3,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.widgets import Button
 
+from terminara.screens.load_game_screen import LoadGameScreen
 from terminara.screens.new_game_screen import NewGameScreen
 
 
@@ -32,8 +33,7 @@ class MainMenuScreen(Screen):
         if event.button.id == "start_new_game":
             self.app.switch_screen(NewGameScreen())
         elif event.button.id == "load_game":
-            # TODO: Implement load game functionality
-            pass
+            self.app.push_screen(LoadGameScreen())
 
     def action_press_button_1(self) -> None:
         """Directly trigger the first button (Start New Game)."""

@@ -1,13 +1,16 @@
 from typing import List
 from terminara.core.state_manager import StateManager
+from terminara.objects.game_state import GameState
 from terminara.objects.world_settings import WorldSettings
 from terminara.objects.scenario import Scenario, Choice, VariableAction, ItemAction
 
 
 class GameEngine:
-    def __init__(self, world_settings: WorldSettings):
+    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
+        if game_state is not None:
+            self.state_manager.load_game(game_state)
         self._scenarios: List[Scenario] = [
             Scenario(
                 text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
