@@ -36,7 +36,8 @@ def get_initial_scenario() -> Scenario:
 
 
 class GameEngine:
-    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None):
+    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None,
+                 load_scenario: Scenario | None = None):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
         self.ai_narrator = AiNarrator(
@@ -46,7 +47,13 @@ class GameEngine:
         )
         if game_state is not None:
             self.state_manager.load_game(game_state)
-        self.current_scenario = None
+        if load_scenario is not None:
+            self.current_scenario = load_scenario
+        else:
+            self.current_scenario = get_initial_scenario()
+
+    def get_current_scenario(self) -> Scenario:
+        return self.current_scenario
 
     def get_next_scenario(self, choice: int | None = None) -> Scenario:
         # Apply the choice to the current scenario.
@@ -73,7 +80,9 @@ class GameEngine:
         scenario = self.ai_narrator.generate_scenario(self.current_scenario.text, current_choice_str,
                                                       self.world_settings, game_state)
         choices = self.ai_narrator.generate_choice(scenario, self.world_settings, game_state)
-        return Scenario(
+        new_scenario = Scenario(
             text=scenario,
             choices=choices.choices
         )
+        self.current_scenario = new_scenario
+        return new_scenario

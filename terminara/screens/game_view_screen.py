@@ -76,7 +76,7 @@ class GameViewScreen(Screen):
     def on_mount(self) -> None:
         """Set initial focus and load the first scenario."""
         terminal_app = cast(TerminalApp, self.app)
-        self._update_scenario_view(terminal_app.game_engine.get_next_scenario())
+        self._update_scenario_view(terminal_app.game_engine.get_current_scenario())
         self.query_one("#choice_1").focus()
 
     def _update_scenario_view(self, scenario: Scenario) -> None:

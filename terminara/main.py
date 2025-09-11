@@ -6,6 +6,7 @@ from textual.app import App
 
 from terminara.core.game_engine import GameEngine
 from terminara.objects.game_state import GameState
+from terminara.objects.scenario import Scenario
 from terminara.objects.world_settings import WorldSettings
 
 
@@ -34,9 +35,9 @@ class TerminalApp(App):
         from terminara.screens.game_view_screen import GameViewScreen
         self.switch_screen(GameViewScreen())
 
-    def load_game(self, world_settings: WorldSettings, game_state: GameState):
+    def load_game(self, world_settings: WorldSettings, game_state: GameState, load_scenario: Scenario):
         """Load a saved game."""
-        self.game_engine = GameEngine(world_settings=world_settings, game_state=game_state)
+        self.game_engine = GameEngine(world_settings=world_settings, game_state=game_state, load_scenario=load_scenario)
 
         # Check if GameViewScreen exists, if not create it
         try:

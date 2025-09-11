@@ -13,7 +13,17 @@ from textual.widgets import ListView, Button, Static
 from terminara.main import TerminalApp
 from terminara.screens.widgets.file_list_item import FileListItem
 
+from terminara.objects.scenario import Scenario
+
 SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
+
+
+def _scenario_to_dict(scenario: Scenario) -> dict:
+    """Converts a Scenario object to a dictionary, handling Pydantic models."""
+    return {
+        "text": scenario.text,
+        "choices": [choice.model_dump() for choice in scenario.choices],
+    }
 
 
 class SaveGameScreen(ModalScreen):
@@ -93,7 +103,8 @@ class SaveGameScreen(ModalScreen):
 
         save_data = {
             "world": terminal_app.world_settings_file,
-            "game_state": dataclasses.asdict(game_state)
+            "game_state": dataclasses.asdict(game_state),
+            "scenario": _scenario_to_dict(terminal_app.game_engine.get_current_scenario())
         }
         file_path = os.path.join(SAVES_DIR, file_name)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
