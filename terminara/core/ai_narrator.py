@@ -6,7 +6,7 @@ from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUs
     ChatCompletionAssistantMessageParam
 
 from terminara.objects.game_state import GameState
-from terminara.objects.scenario import Choices, Choice
+from terminara.objects.scenario import Choices
 from terminara.objects.world_settings import WorldSettings
 
 
@@ -27,7 +27,7 @@ class AiNarrator:
     def generate_scenario(self, last_scenario: str, current_choice: str, world_settings: WorldSettings,
                           game_state: GameState) -> str:
         if not self.client:
-            return "AI is not connected."
+            raise ConnectionError("AI client is not connected.")
         completions: Completions = self.client.chat.completions
         response = completions.create(
             model=self.model,
@@ -59,14 +59,13 @@ class AiNarrator:
                 )
             ]
         )
+        if not response.choices or not response.choices[0].message.content:
+            raise ValueError("AI did not return a valid scenario.")
         return response.choices[0].message.content
 
     def generate_choice(self, current_scenario: str, world_settings: WorldSettings, game_state: GameState) -> Choices:
         if not self.client:
-            self.connect()
-            return Choices(choices=[Choice(
-                text="1. Retry"
-            )])
+            raise ConnectionError("AI client is not connected.")
         completions: Completions = self.client.chat.completions
         response = completions.parse(
             model=self.model,
@@ -91,4 +90,6 @@ class AiNarrator:
             ],
             response_format=Choices
         )
+        if not response.choices or not response.choices[0].message.parsed:
+            raise ValueError("AI did not return valid choices.")
         return response.choices[0].message.parsed
