@@ -1,31 +1,34 @@
-from dataclasses import dataclass, field
-from typing import List, Any
+from dataclasses import dataclass
+from typing import List, Any, Union
 from abc import ABC
+from pydantic import BaseModel
 
 
-class Action(ABC):
+class Action(BaseModel, ABC):
     """Abstract base class for an action to be executed."""
+    pass
 
 
-@dataclass
 class VariableAction(Action):
     """An action that modifies a game variable."""
     variable_name: str
     value: Any
 
 
-@dataclass
 class ItemAction(Action):
     """An action that adds or removes an item from the inventory."""
     item_name: str
     quantity: int
 
 
-@dataclass
-class Choice:
+class Choice(BaseModel):
     """Represents a player's choice, with text and resulting actions."""
     text: str
-    actions: List[Action] = field(default_factory=list)
+    actions: List[Union[VariableAction, ItemAction]] = []
+
+
+class Choices(BaseModel):
+    choices: List[Choice]
 
 
 @dataclass

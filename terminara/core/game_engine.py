@@ -1,60 +1,67 @@
-from typing import List
+import os
+
+from terminara.core.ai_narrator import AiNarrator
 from terminara.core.state_manager import StateManager
 from terminara.objects.game_state import GameState
-from terminara.objects.world_settings import WorldSettings
 from terminara.objects.scenario import Scenario, Choice, VariableAction, ItemAction
+from terminara.objects.world_settings import WorldSettings
+
+
+def get_initial_scenario() -> Scenario:
+    return Scenario(
+        text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
+        choices=[
+            Choice(
+                text="1. Enter the forest cautiously",
+                actions=[
+                    VariableAction(
+                        variable_name="hp",
+                        value="-5"
+                    )
+                ]
+            ),
+            Choice(text="2. Call out to see if anyone responds"),
+            Choice(
+                text="3. Search the trees for something",
+                actions=[
+                    ItemAction(
+                        item_name="wood",
+                        quantity=1
+                    )
+                ]
+            ),
+            Choice(text="4. Turn back and leave")
+        ]
+    )
 
 
 class GameEngine:
-    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None):
+    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None,
+                 load_scenario: Scenario | None = None):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
+        self.ai_narrator = AiNarrator(
+            host=os.getenv("OPENAI_API_HOST"),  # TODO load env for testing, change to config later?
+            key=os.getenv("OPENAI_API_KEY"),
+            model=os.getenv("OPENAI_API_MODEL")
+        )
         if game_state is not None:
             self.state_manager.load_game(game_state)
-        self._scenarios: List[Scenario] = [
-            Scenario(
-                text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
-                choices=[
-                    Choice(text="1. Enter the forest cautiously"),
-                    Choice(text="2. Call out to see if anyone responds"),
-                    Choice(
-                        text="3. Search the trees for something",
-                        actions=[
-                            ItemAction(
-                                item_name="wood",
-                                quantity=1
-                            )
-                        ]
-                    ),
-                    Choice(text="4. Turn back and leave")
-                ]
-            ),
-            Scenario(
-                text="You step into the forest. A thick fog surrounds you, and the path ahead is barely visible. You hear a twig snap nearby.",
-                choices=[
-                    Choice(
-                        text="1. Continue cautiously on the path",
-                        actions=[
-                            VariableAction(
-                                variable_name="hp",
-                                value="-5"
-                            )
-                        ]
-                    ),
-                    Choice(text="2. Retreat from the forest")
-                ]
-            )
-        ]
-        self._current_scenario_index = 0
+        if load_scenario is not None:
+            self.current_scenario = load_scenario
+        else:
+            self.current_scenario = get_initial_scenario()
 
-    def get_initial_scenario(self) -> Scenario:
-        return self._scenarios[0]
+    def get_current_scenario(self) -> Scenario:
+        return self.current_scenario
 
-    def get_next_scenario(self, choice: int) -> Scenario:
+    def get_choice(self, index: int) -> Choice:
+        return self.current_scenario.choices[index - 1]
+
+    def get_next_scenario(self, choice: Choice) -> Scenario:
         # Apply the choice to the current scenario.
-        current_scenario: Scenario = self._scenarios[self._current_scenario_index]
-        current_choice: Choice = current_scenario.choices[choice - 1]
-        for action in current_choice.actions:
+        current_choice_str = choice.text
+        for action in choice.actions:
             if isinstance(action, VariableAction):
                 self.state_manager.modify_variable(action.variable_name, action.value)
             elif isinstance(action, ItemAction):
@@ -63,9 +70,18 @@ class GameEngine:
                 else:
                     self.state_manager.add_item(action.item_name, action.quantity)
 
-        # This is a placeholder implementation that ignores the choice and cycles
-        # between the two scenarios.
-        self._current_scenario_index = (self._current_scenario_index + 1) % len(
-            self._scenarios
+        if not self.current_scenario:
+            self.current_scenario = get_initial_scenario()
+            return self.current_scenario
+
+        # Generate the next scenario.
+        game_state = self.state_manager.save_game()
+        scenario = self.ai_narrator.generate_scenario(self.current_scenario.text, current_choice_str,
+                                                      self.world_settings, game_state)
+        choices = self.ai_narrator.generate_choice(scenario, self.world_settings, game_state)
+        new_scenario = Scenario(
+            text=scenario,
+            choices=choices.choices
         )
-        return self._scenarios[self._current_scenario_index]
+        self.current_scenario = new_scenario
+        return new_scenario

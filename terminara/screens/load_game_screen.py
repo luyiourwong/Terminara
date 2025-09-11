@@ -10,6 +10,7 @@ from textual.widgets import ListView, Static, Button
 
 from terminara.main import TerminalApp
 from terminara.objects.game_state import GameState
+from terminara.objects.scenario import Scenario, Choice
 from terminara.screens.widgets.file_list_item import FileListItem
 
 SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
@@ -81,15 +82,16 @@ class LoadGameScreen(ModalScreen):
         terminal_app = cast(TerminalApp, self.app)
         file_path = os.path.join(SAVES_DIR, file_name)
         if not os.path.exists(file_path):
-            print(f"Error: Save file '{file_path}' not found.")
+            self.log(f"Error: Save file '{file_path}' not found.")
             return
         with open(file_path, "r") as f:
             save_data = json.load(f)
 
         world_name = save_data.get("world")
         game_state_dict = save_data.get("game_state")
-        if not world_name or game_state_dict is None:
-            print(f"Error: Invalid save file format in '{file_name}'. Missing 'world' or 'game_state'.")
+        scenario_dict = save_data.get("scenario")
+        if not world_name or not game_state_dict or not scenario_dict:
+            self.log(f"Error: Invalid save file format in '{file_name}'. Missing 'world' or 'game_state' or 'scenario'.")
             return
         # Loading World Settings
         from terminara.core.world_handler import load_world
@@ -100,11 +102,20 @@ class LoadGameScreen(ModalScreen):
                 inventory=game_state_dict.get('inventory', {})
             )
         except Exception as e:
-            print(f"Error: Failed to reconstruct GameState from loaded data: {e}")
+            self.log(f"Error: Failed to reconstruct GameState from loaded data: {e}")
             return
-        # Set the current world setting file in the application, consistent with `action_load_world`
-        terminal_app.world_settings_file = world_name
-        terminal_app.load_game(world_settings, game_state)
+        # Loading Scenario
+        try:
+            load_scenario = Scenario(
+                text=scenario_dict.get("text", ""),
+                choices=[Choice(**choice_data) for choice_data in scenario_dict.get("choices", [])]
+            )
+            # Set the current world setting file in the application, consistent with `action_load_world`
+            terminal_app.world_settings_file = world_name
+            terminal_app.load_game(world_settings, game_state, load_scenario)
+        except Exception as e:
+            self.log(f"Error: Failed to reconstruct Scenario from loaded data: {e}")
+            return
 
     def action_press_button(self, button_id: str) -> None:
         """Press a button by its ID."""

@@ -18,31 +18,6 @@ Button:focus {
     color: black;
 }
 
-#nav_buttons {
-    height: 1;
-    dock: top;
-}
-
-#nav_buttons Button {
-    width: auto;
-    margin-right: 1;
-}
-
-#scenario_text {
-    margin: 1 0;
-    padding: 1;
-    border: solid white;
-}
-
-#choice_buttons {
-    dock: bottom;
-    height: 4;
-}
-
-#choice_buttons Button {
-    margin-bottom: 0;
-}
-
 FileListItem {
     height: 2;
 }
