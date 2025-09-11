@@ -15,6 +15,8 @@ class OptionsMenuScreen(Screen):
         Binding("e", "press_button('exit')", "Exit"),
         Binding("up", "focus_previous", "Select previous"),
         Binding("down", "focus_next", "Select next"),
+        Binding("left", "press_button('return')", "Return"),
+        Binding("right", "press_selected", "Activate selected button"),
         Binding("enter", "press_selected", "Activate selected button"),
     ]
 
@@ -55,11 +57,11 @@ class OptionsMenuScreen(Screen):
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
-        self.focus_previous(Button)
+        self.focus_previous()
 
     def action_focus_next(self) -> None:
         """Focus on the next button."""
-        self.focus_next(Button)
+        self.focus_next()
 
     def action_press_selected(self) -> None:
         """Trigger the currently focused button."""

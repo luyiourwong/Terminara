@@ -29,7 +29,7 @@ class LoadGameScreen(ModalScreen):
 
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
-        yield Static("Load Game (Press tab to switch focus)")
+        yield Static("Load Game")
         yield Static("---")
         with Vertical(id="save-game-container"):
             yield ListView(id="save-game-list")
@@ -114,14 +114,18 @@ class LoadGameScreen(ModalScreen):
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
-        self.focus_previous(Button)
+        self.focus_previous()
 
     def action_focus_next(self) -> None:
         """Focus on the next button."""
-        self.focus_next(Button)
+        self.focus_next()
 
     def action_press_selected(self) -> None:
         """Trigger the currently focused button."""
         focused = self.app.focused
         if isinstance(focused, Button) and not focused.disabled:
             focused.press()
+        if isinstance(focused, ListView) and not focused.disabled:
+            highlight_item = focused.highlighted_child
+            if isinstance(highlight_item, FileListItem):
+                self.load_file(highlight_item.file_path)

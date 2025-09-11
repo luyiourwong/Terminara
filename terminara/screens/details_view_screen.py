@@ -1,6 +1,7 @@
 from typing import cast
 
 from textual.app import ComposeResult
+from textual.binding import Binding
 from textual.containers import Vertical
 from textual.screen import Screen
 from textual.widgets import Button, Static
@@ -11,11 +12,17 @@ from terminara.main import TerminalApp
 class DetailsViewScreen(Screen):
     """The details view screen showing player information."""
 
+    # Define key bindings for the screen
+    BINDINGS = [
+        Binding("r", "press_button('return')", "Return"),
+        Binding("left", "press_button('return')", "Return"),
+    ]
+
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
         yield Vertical(
             Static(id="details_content"),
-            Button("Return", id="return_button", variant="primary"),
+            Button("Return", id="return", variant="primary"),
         )
 
     def on_mount(self) -> None:
@@ -46,5 +53,11 @@ class DetailsViewScreen(Screen):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle the return button press."""
-        if event.button.id == "return_button":
+        if event.button.id == "return":
             self.app.pop_screen()
+
+    def action_press_button(self, button_id: str) -> None:
+        """Press a button by its ID."""
+        button = self.query_one(f"#{button_id}", Button)
+        if not button.disabled:
+            button.press()
