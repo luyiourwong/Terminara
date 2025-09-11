@@ -15,16 +15,43 @@ from terminara.screens.options_menu_screen import OptionsMenuScreen
 class GameViewScreen(Screen):
     """The main game view screen."""
 
+    CSS = """
+    #nav_buttons {
+        height: 1;
+        dock: top;
+    }
+    
+    #nav_buttons Button {
+        width: auto;
+        margin-right: 1;
+    }
+    
+    #scenario_text {
+        margin: 1 0;
+        padding: 1;
+        border: solid white;
+    }
+    
+    #choice_buttons {
+        dock: bottom;
+        height: 4;
+    }
+    
+    #choice_buttons Button {
+        margin-bottom: 0;
+    }
+    """
+
     BINDINGS = [
-        Binding("d", "show_details", "Details"),
-        Binding("o", "show_options", "Options"),
-        Binding("1", "press_choice_1", "Choice 1"),
-        Binding("2", "press_choice_2", "Choice 2"),
-        Binding("3", "press_choice_3", "Choice 3"),
-        Binding("4", "press_choice_4", "Choice 4"),
+        Binding("d", "press_button('details_button')", "Details"),
+        Binding("o", "press_button('options_button')", "Options"),
+        Binding("1", "press_button('choice_1')", "Choice 1"),
+        Binding("2", "press_button('choice_2')", "Choice 2"),
+        Binding("3", "press_button('choice_3')", "Choice 3"),
+        Binding("4", "press_button('choice_4')", "Choice 4"),
         Binding("up", "focus_previous", "Select previous"),
         Binding("down", "focus_next", "Select next"),
-        Binding("left", "show_details", "Details"),
+        Binding("left", "press_button('details_button')", "Details"),
         Binding("right", "press_selected", "Activate selected button"),
         Binding("enter", "press_selected", "Activate selected button"),
     ]
@@ -49,8 +76,7 @@ class GameViewScreen(Screen):
     def on_mount(self) -> None:
         """Set initial focus and load the first scenario."""
         terminal_app = cast(TerminalApp, self.app)
-        initial_scenario = terminal_app.game_engine.get_initial_scenario()
-        self._update_scenario_view(initial_scenario)
+        self._update_scenario_view(terminal_app.game_engine.get_next_scenario())
         self.query_one("#choice_1").focus()
 
     def _update_scenario_view(self, scenario: Scenario) -> None:
@@ -78,35 +104,9 @@ class GameViewScreen(Screen):
             next_scenario = terminal_app.game_engine.get_next_scenario(choice_number)
             self._update_scenario_view(next_scenario)
 
-    def action_show_details(self) -> None:
-        """Show the details screen."""
-        self.app.push_screen(DetailsViewScreen())
-
-    def action_show_options(self) -> None:
-        """Show the options screen."""
-        self.app.push_screen(OptionsMenuScreen())
-
-    def action_press_choice_1(self) -> None:
-        """Directly trigger choice 1."""
-        button = self.query_one("#choice_1", Button)
-        if not button.disabled:
-            button.press()
-
-    def action_press_choice_2(self) -> None:
-        """Directly trigger choice 2."""
-        button = self.query_one("#choice_2", Button)
-        if not button.disabled:
-            button.press()
-
-    def action_press_choice_3(self) -> None:
-        """Directly trigger choice 3."""
-        button = self.query_one("#choice_3", Button)
-        if not button.disabled:
-            button.press()
-
-    def action_press_choice_4(self) -> None:
-        """Directly trigger choice 4."""
-        button = self.query_one("#choice_4", Button)
+    def action_press_button(self, button_id: str) -> None:
+        """Press a button by its ID."""
+        button = self.query_one(f"#{button_id}", Button)
         if not button.disabled:
             button.press()
 
