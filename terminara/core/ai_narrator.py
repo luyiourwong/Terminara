@@ -6,6 +6,7 @@ from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUs
     ChatCompletionAssistantMessageParam
 
 from terminara.objects.game_state import GameState
+from terminara.objects.scenario import Choices, Choice
 from terminara.objects.world_settings import WorldSettings
 
 
@@ -60,5 +61,34 @@ class AiNarrator:
         )
         return response.choices[0].message.content
 
-    def generate_choice(self, current_scenario: str, game_state: GameState):
-        pass
+    def generate_choice(self, current_scenario: str, world_settings: WorldSettings, game_state: GameState) -> Choices:
+        if not self.client:
+            self.connect()
+            return Choices(choices=[Choice(
+                text="1. Retry"
+            )])
+        completions: Completions = self.client.chat.completions
+        response = completions.parse(
+            model=self.model,
+            messages=[
+                ChatCompletionSystemMessageParam(
+                    role="system",
+                    content=f"""
+                    You are a story teller, generate choices based on the scenario.
+                    World Settings: {world_settings.ai.system}
+                    World Lores: {world_settings.ai.lore}
+                    World Variables: {world_settings.variables}
+                    World Items: {world_settings.items}
+                    Game State: {dataclasses.asdict(game_state)}
+                    {world_settings.ai.prompt}
+                    Note: You only need to generate the choices.
+                    """
+                ),
+                ChatCompletionUserMessageParam(
+                    role="user",
+                    content=f"Current scenario: '{current_scenario}', generate 1 to 4 choices based on the scenario."
+                )
+            ],
+            response_format=Choices
+        )
+        return response.choices[0].message.parsed

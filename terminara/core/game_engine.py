@@ -69,18 +69,11 @@ class GameEngine:
             return self.current_scenario
 
         # Generate the next scenario.
+        game_state = self.state_manager.save_game()
         scenario = self.ai_narrator.generate_scenario(self.current_scenario.text, current_choice_str,
-                                                      self.world_settings, self.state_manager.save_game())
-        #TODO Generate choices based on the scenario.
+                                                      self.world_settings, game_state)
+        choices = self.ai_narrator.generate_choice(scenario, self.world_settings, game_state)
         return Scenario(
             text=scenario,
-            choices=[Choice(
-                text="1. Enter the forest cautiously",
-                actions=[
-                    VariableAction(
-                        variable_name="hp",
-                        value="-5"
-                    )
-                ]
-            )]
+            choices=choices.choices
         )
