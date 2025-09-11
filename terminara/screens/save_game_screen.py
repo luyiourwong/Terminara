@@ -31,7 +31,7 @@ class SaveGameScreen(ModalScreen):
 
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
-        yield Static("Save Game (Press tab to switch focus)")
+        yield Static("Save Game")
         yield Static("---")
         with Vertical(id="save-game-container"):
             yield ListView(id="save-game-list")
@@ -110,14 +110,18 @@ class SaveGameScreen(ModalScreen):
 
     def action_focus_previous(self) -> None:
         """Focus on the previous button."""
-        self.focus_previous(Button)
+        self.focus_previous()
 
     def action_focus_next(self) -> None:
         """Focus on the next button."""
-        self.focus_next(Button)
+        self.focus_next()
 
     def action_press_selected(self) -> None:
-        """Trigger the currently focused button."""
+        """Trigger the currently focused button or list item."""
         focused = self.app.focused
         if isinstance(focused, Button) and not focused.disabled:
             focused.press()
+        if isinstance(focused, ListView) and not focused.disabled:
+            highlight_item = focused.highlighted_child
+            if isinstance(highlight_item, FileListItem):
+                self.save_file(highlight_item.file_path)
