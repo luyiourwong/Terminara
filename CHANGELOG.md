@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/luyiourwong/Terminara/compare/v0.2.7...v0.3.0) (2025-09-11)
+
+
+### Features
+
+* Allow custom user choices in game view ([c6d85d5](https://github.com/luyiourwong/Terminara/commit/c6d85d56561d47764d26ee97d63ecdf063969f23))
+* Implement AI-powered choice generation ([38bf3b7](https://github.com/luyiourwong/Terminara/commit/38bf3b76ec294e39de270548b7ac94fcb3cb9448))
+* implement dynamic scenario generation ([a937790](https://github.com/luyiourwong/Terminara/commit/a937790ac634727d77801a0e714c9fb6bce7c487))
+* implement non-blocking scenario generation in game view ([04dd0f2](https://github.com/luyiourwong/Terminara/commit/04dd0f2c1e2f760fa0096ec27ea5374bebe67f99))
+* improve keyboard navigation and bindings ([310d814](https://github.com/luyiourwong/Terminara/commit/310d814f4b8df39874534c9e356963c714307638))
+* include current scenario in save files ([83cdc92](https://github.com/luyiourwong/Terminara/commit/83cdc92123c3cb33f029e9cb7f4673214f2298e1))
+* integrate AI narrator for dynamic scenarios ([9c0bc40](https://github.com/luyiourwong/Terminara/commit/9c0bc40dce3e5d2be4d9c667913fc0bdf9424757))
+
 ## [0.2.7](https://github.com/luyiourwong/Terminara/compare/v0.2.6...v0.2.7) (2025-09-10)
 
 
