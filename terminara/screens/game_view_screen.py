@@ -1,5 +1,6 @@
 from typing import cast
 
+from textual import work
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
@@ -16,14 +17,19 @@ class GameViewScreen(Screen):
     """The main game view screen."""
 
     CSS = """
-    #nav_buttons {
+    #nav_header {
         height: 1;
         dock: top;
     }
     
-    #nav_buttons Button {
+    #nav_header Button {
         width: auto;
         margin-right: 1;
+    }
+
+    #loading_status {
+        width: auto;
+        margin-left: 1;
     }
     
     #scenario_text {
@@ -68,9 +74,10 @@ class GameViewScreen(Screen):
 
     def compose(self) -> ComposeResult:
         """Create the content of the screen."""
-        with Horizontal(id="nav_buttons"):
+        with Horizontal(id="nav_header"):
             yield Button("[D] Details", id="details_button")
             yield Button("[O] Options", id="options_button")
+            yield Static(id="loading_status")
 
         yield Static("", id="scenario_text")
 
@@ -100,6 +107,39 @@ class GameViewScreen(Screen):
                 button.label = ""
                 button.display = False
 
+    def _toggle_ui_elements(self, disabled: bool) -> None:
+        """Enable or disable the choice buttons and custom input."""
+        self.query_one("#choice_buttons").disabled = disabled
+        self.query_one("#custom_choice_input").disabled = disabled
+        self.query_one("#details_button").disabled = disabled
+        self.query_one("#options_button").disabled = disabled
+
+    def _process_choice(self, choice: Choice) -> None:
+        """Process the player's choice and fetch the next scenario."""
+        loading_status = self.query_one("#loading_status", Static)
+        loading_status.update("generating next scenario...")
+        self._toggle_ui_elements(True)
+
+        # 启动 worker 处理耗时操作
+        self._get_scenario_worker(choice)
+
+    @work(thread=True)
+    def _get_scenario_worker(self, choice: Choice) -> None:
+        """Worker to fetch the next scenario in background."""
+        terminal_app = cast(TerminalApp, self.app)
+        next_scenario = terminal_app.game_engine.get_next_scenario(choice)
+
+        # 使用 call_from_thread 安全地更新 UI
+        self.app.call_from_thread(self._update_scenario_complete, next_scenario)
+
+    def _update_scenario_complete(self, next_scenario: Scenario) -> None:
+        """Complete the scenario update on the main thread."""
+        self._update_scenario_view(next_scenario)
+        loading_status = self.query_one("#loading_status", Static)
+        loading_status.update("")
+        self._toggle_ui_elements(False)
+        self.query_one("#choice_1").focus()
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button press events."""
         if event.button.id == "details_button":
@@ -110,17 +150,12 @@ class GameViewScreen(Screen):
             choice_number = int(event.button.id.split("_")[1])
             terminal_app = cast(TerminalApp, self.app)
             current_choice = terminal_app.game_engine.get_choice(choice_number)
-            next_scenario = terminal_app.game_engine.get_next_scenario(current_choice)
-            self._update_scenario_view(next_scenario)
+            self._process_choice(current_choice)
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         """Handle the submission of the custom choice input."""
-        custom_choice = Choice(
-            text=event.value
-        )
-        terminal_app = cast(TerminalApp, self.app)
-        next_scenario = terminal_app.game_engine.get_next_scenario(custom_choice)
-        self._update_scenario_view(next_scenario)
+        custom_choice = Choice(text=event.value)
+        self._process_choice(custom_choice)
         event.input.clear()
 
     def action_press_button(self, button_id: str) -> None:
