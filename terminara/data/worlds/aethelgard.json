@@ -5,7 +5,7 @@
   },
   "ai": {
     "system": "This is aethelgard, a world of myth.",
-    "prompt": "You are the god of the world, generate a story and choice(1~4) for the player.",
+    "prompt": "Generate stories based on Norse mythology.",
     "lore": {
       "leveling": "Player can level up by doing something brave."
     }

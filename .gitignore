@@ -10,3 +10,6 @@
 /dist/
 /build/
 /terminara.egg-info/
+/terminara/data/saves/*.json
+/.roo/
+.env

@@ -52,6 +52,7 @@ class GameEngine:
         # Apply the choice to the current scenario.
         if choice:
             current_choice: Choice = self.current_scenario.choices[choice - 1]
+            current_choice_str = current_choice.text
             for action in current_choice.actions:
                 if isinstance(action, VariableAction):
                     self.state_manager.modify_variable(action.variable_name, action.value)
@@ -60,10 +61,26 @@ class GameEngine:
                         self.state_manager.remove_item(action.item_name, action.quantity)
                     else:
                         self.state_manager.add_item(action.item_name, action.quantity)
+        else:
+            current_choice_str = "nothing"
 
         if not self.current_scenario:
             self.current_scenario = get_initial_scenario()
             return self.current_scenario
 
-        #TODO This is a placeholder implementation that ignores the choice and cycles
-        return self.current_scenario
+        # Generate the next scenario.
+        scenario = self.ai_narrator.generate_scenario(self.current_scenario.text, current_choice_str,
+                                                      self.world_settings, self.state_manager.save_game())
+        #TODO Generate choices based on the scenario.
+        return Scenario(
+            text=scenario,
+            choices=[Choice(
+                text="1. Enter the forest cautiously",
+                actions=[
+                    VariableAction(
+                        variable_name="hp",
+                        value="-5"
+                    )
+                ]
+            )]
+        )
