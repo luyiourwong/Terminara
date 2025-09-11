@@ -55,21 +55,20 @@ class GameEngine:
     def get_current_scenario(self) -> Scenario:
         return self.current_scenario
 
-    def get_next_scenario(self, choice: int | None = None) -> Scenario:
+    def get_choice(self, index: int) -> Choice:
+        return self.current_scenario.choices[index - 1]
+
+    def get_next_scenario(self, choice: Choice) -> Scenario:
         # Apply the choice to the current scenario.
-        if choice:
-            current_choice: Choice = self.current_scenario.choices[choice - 1]
-            current_choice_str = current_choice.text
-            for action in current_choice.actions:
-                if isinstance(action, VariableAction):
-                    self.state_manager.modify_variable(action.variable_name, action.value)
-                elif isinstance(action, ItemAction):
-                    if action.quantity < 0:
-                        self.state_manager.remove_item(action.item_name, action.quantity)
-                    else:
-                        self.state_manager.add_item(action.item_name, action.quantity)
-        else:
-            current_choice_str = "nothing"
+        current_choice_str = choice.text
+        for action in choice.actions:
+            if isinstance(action, VariableAction):
+                self.state_manager.modify_variable(action.variable_name, action.value)
+            elif isinstance(action, ItemAction):
+                if action.quantity < 0:
+                    self.state_manager.remove_item(action.item_name, action.quantity)
+                else:
+                    self.state_manager.add_item(action.item_name, action.quantity)
 
         if not self.current_scenario:
             self.current_scenario = get_initial_scenario()

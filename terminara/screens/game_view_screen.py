@@ -3,11 +3,11 @@ from typing import cast
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
-from textual.widgets import Button, Static
+from textual.widgets import Button, Static, Input
 from textual.containers import Vertical, Horizontal
 
 from terminara.main import TerminalApp
-from terminara.objects.scenario import Scenario
+from terminara.objects.scenario import Scenario, Choice
 from terminara.screens.details_view_screen import DetailsViewScreen
 from terminara.screens.options_menu_screen import OptionsMenuScreen
 
@@ -34,11 +34,18 @@ class GameViewScreen(Screen):
     
     #choice_buttons {
         dock: bottom;
-        height: 4;
+        height: 5;
     }
     
     #choice_buttons Button {
         margin-bottom: 0;
+    }
+
+    #custom_choice_input {
+        height: 1;
+        margin: 0;
+        padding: 0;
+        border: none;
     }
     """
 
@@ -72,6 +79,7 @@ class GameViewScreen(Screen):
             yield Button("", id="choice_2")
             yield Button("", id="choice_3")
             yield Button("", id="choice_4")
+            yield Input(placeholder="Or type your own choice...", id="custom_choice_input")
 
     def on_mount(self) -> None:
         """Set initial focus and load the first scenario."""
@@ -101,8 +109,19 @@ class GameViewScreen(Screen):
         elif event.button.id.startswith("choice_"):
             choice_number = int(event.button.id.split("_")[1])
             terminal_app = cast(TerminalApp, self.app)
-            next_scenario = terminal_app.game_engine.get_next_scenario(choice_number)
+            current_choice = terminal_app.game_engine.get_choice(choice_number)
+            next_scenario = terminal_app.game_engine.get_next_scenario(current_choice)
             self._update_scenario_view(next_scenario)
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        """Handle the submission of the custom choice input."""
+        custom_choice = Choice(
+            text=event.value
+        )
+        terminal_app = cast(TerminalApp, self.app)
+        next_scenario = terminal_app.game_engine.get_next_scenario(custom_choice)
+        self._update_scenario_view(next_scenario)
+        event.input.clear()
 
     def action_press_button(self, button_id: str) -> None:
         """Press a button by its ID."""
