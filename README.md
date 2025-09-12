@@ -11,7 +11,7 @@ You can download the executable application from [latest release](https://github
 The full compressed file includes the executable file and the default world settings file. You can only download the executable file if you are updating the game to the latest version.
 
 <details>
-<summary><strong>Manual build</strong></summary>
+<summary><strong>Manual run</strong></summary>
 
 ### Installation
 
@@ -33,13 +33,13 @@ The full compressed file includes the executable file and the default world sett
     pip install -e .
     ```
 
-#### Method 1: Using the installed command (Recommended)
+### Start Method 1: Using the installed command (Recommended)
 After installation, run the game with:
 ```bash
 terminara
 ```
 
-#### Method 2: Direct execution
+### Start Method 2: Direct execution
 Cross-platform way
 ```bash
 python -m terminara.main
@@ -49,36 +49,6 @@ or
 python terminara/main.py
 ```
 On Windows, use `terminara\main.py`
-
-#### Method 3: Background execution for testing
-This is a long-live program, so if you want to test it, you can use this command instead:
-
-Unix/Linux/macOS
-```bash
-python -m terminara.main > app.log 2>&1 &
-```
-or Windows (background with start)
-```bash
-python terminara\main.py > app.log 2>&1
-```
-
-### Pack to Executable
-
-1. **Prerequisites**
-    ```bash
-    pip install pyinstaller
-    ```
-
-2. **Run the Packaging Command**
-    ```bash
-    pyinstaller terminara.spec
-    ```
-After packaging is complete, the executable will be located in the `dist` directory
-
-### Unit testing
-```bash
-python -m unittest discover -v
-```
 </details>
 
 ## AI Setup
@@ -105,3 +75,12 @@ Click "Apply" to save the settings.
 - **Host**: `https://generativelanguage.googleapis.com/v1beta/openai/`
 - **API Key**: `YOUR_GEMINI_API_KEY`
 - **Model**: `gemini-2.0-flash`
+
+## Links
+
+- [GitHub Repository](https://github.com/luyiourwong/Terminara)
+- [Contribute & Develop Guide](CONTRIBUTING.md)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

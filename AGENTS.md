@@ -3,37 +3,7 @@
 A terminal-based ai simulation game.
 
 ## Usage
-### Method 1: Install as package (Recommended)
-```bash
-pip install -e .
-```
-then run the game with:
-```bash
-terminara
-```
-
-### Method 2: Direct execution
-Cross-platform way
-```bash
-python -m terminara.main
-```
-or
-```bash
-python terminara/main.py
-```
-
-### Method 3: Background execution for testing
-This is a long-live program, so if you want to test it, you can use this command instead:
-
-Unix/Linux/macOS
-```bash
-python -m terminara.main > app.log 2>&1 &
-```
-
-### Extra: Unit testing
-```bash
-python -m unittest discover -v
-```
+Read [CONTRIBUTING](CONTRIBUTING.md) for instructions on how to run the project in development mode.
 
 ## Objective
 
@@ -79,6 +49,9 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   `-- test_core/
 |       |-- __init__.py
 |       `-- test_world_handler.py       # Unit test files
+|-- AGENTS.md             # Guide for AI coding agents
+|-- CONTRIBUTING.md       # Guide for contribute & development
+|-- README.md             # Guide for using this project
 |-- pyproject.toml        # Python project configuration
 `-- terminara.spec        # PyInstaller spec file
 ```
@@ -121,6 +94,7 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 
 - Python 3.13+
 - textual 6.0.0+
+- openai 1.107.0+
 
 <details>
 <summary><strong>Note: textual 6 (release at 2025/08/30) has breaking changes list below.</strong></summary>

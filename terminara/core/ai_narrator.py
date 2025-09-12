@@ -59,7 +59,7 @@ class AiNarrator:
                 ),
                 ChatCompletionUserMessageParam(
                     role="user",
-                    content=f"I choose '{current_choice}', generate next scenario based on the last scenario and my choice."
+                    content=f"I choose '{current_choice}', generate next scenario based on the last scenario and my choice."  # noqa: E501
                 )
             ]
         )

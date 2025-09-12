@@ -91,7 +91,7 @@ class LoadGameScreen(ModalScreen):
         game_state_dict = save_data.get("game_state")
         scenario_dict = save_data.get("scenario")
         if not world_name or not game_state_dict or not scenario_dict:
-            self.log(f"Error: Invalid save file format in '{file_name}'. Missing 'world' or 'game_state' or 'scenario'.")
+            self.log(f"Error: Invalid save file format in '{file_name}'. Missing fields.")
             return
         # Loading World Settings
         from terminara.core.world_handler import load_world

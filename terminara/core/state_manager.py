@@ -4,8 +4,6 @@ from terminara.objects.game_state import GameState
 from terminara.objects.world_settings import WorldSettings
 
 
-
-
 class StateManager:
     """Manages the game state, including variables and inventory."""
 

@@ -7,7 +7,7 @@ from terminara.objects.world_settings import WorldSettings
 
 def get_initial_scenario() -> Scenario:
     return Scenario(
-        text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",
+        text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",  # noqa: E501
         choices=[
             Choice(
                 text="1. Enter the forest cautiously",
