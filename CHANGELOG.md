@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/luyiourwong/Terminara/compare/v0.4.0...v0.5.0) (2025-09-12)
+
+
+### Features
+
+* add development environment and contributing guide ([39c8563](https://github.com/luyiourwong/Terminara/commit/39c85638441636f2f0b18bd75012ed324b10f828))
+* add LICENSE and links in README.md ([c03488c](https://github.com/luyiourwong/Terminara/commit/c03488c2e927f3393fc5daa51e5f00840646e152))
+
+
+### Bug Fixes
+
+* apply linter suggestions and formatting fixes ([b55dd5a](https://github.com/luyiourwong/Terminara/commit/b55dd5a376e4c912901bab2bb156b6ae1efe1a0d))
+
 ## [0.4.0](https://github.com/luyiourwong/Terminara/compare/v0.3.0...v0.4.0) (2025-09-12)
 
 
