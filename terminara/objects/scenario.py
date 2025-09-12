@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-from typing import List, Any, Union
 from abc import ABC
+from dataclasses import dataclass
+from typing import List, Union
+
 from pydantic import BaseModel
 
 
@@ -12,7 +13,7 @@ class Action(BaseModel, ABC):
 class VariableAction(Action):
     """An action that modifies a game variable."""
     variable_name: str
-    value: Any
+    value: str
 
 
 class ItemAction(Action):
