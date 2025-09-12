@@ -75,3 +75,12 @@ Click "Apply" to save the settings.
 - **Host**: `https://generativelanguage.googleapis.com/v1beta/openai/`
 - **API Key**: `YOUR_GEMINI_API_KEY`
 - **Model**: `gemini-2.0-flash`
+
+## Links
+
+- [GitHub Repository](https://github.com/luyiourwong/VertexTuningGenerator)
+- [Contribute & Develop Guide](CONTRIBUTING.md)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

@@ -49,6 +49,9 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 |   `-- test_core/
 |       |-- __init__.py
 |       `-- test_world_handler.py       # Unit test files
+|-- AGENTS.md             # Guide for AI coding agents
+|-- CONTRIBUTING.md       # Guide for contribute & development
+|-- README.md             # Guide for using this project
 |-- pyproject.toml        # Python project configuration
 `-- terminara.spec        # PyInstaller spec file
 ```
@@ -91,6 +94,7 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 
 - Python 3.13+
 - textual 6.0.0+
+- openai 1.107.0+
 
 <details>
 <summary><strong>Note: textual 6 (release at 2025/08/30) has breaking changes list below.</strong></summary>
