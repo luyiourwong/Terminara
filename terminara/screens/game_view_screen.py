@@ -21,32 +21,26 @@ class GameViewScreen(Screen):
         height: 1;
         dock: top;
     }
-    
     #nav_header Button {
         width: auto;
         margin-right: 1;
     }
-
     #loading_status {
         width: auto;
         margin-left: 1;
     }
-    
     #scenario_text {
         margin: 1 0;
         padding: 1;
         border: solid white;
     }
-    
     #choice_buttons {
         dock: bottom;
         height: 5;
     }
-    
     #choice_buttons Button {
         margin-bottom: 0;
     }
-
     #custom_choice_input {
         height: 1;
         margin: 0;

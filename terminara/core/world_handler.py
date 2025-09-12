@@ -23,7 +23,7 @@ def load_world(world_name: str) -> WorldSettings:
     Returns:
         The loaded world settings.
     """
-    world_file = pathlib.Path(os.getcwd())/ "terminara" / "data" / "worlds" / f"{world_name}.json"
+    world_file = pathlib.Path(os.getcwd()) / "terminara" / "data" / "worlds" / f"{world_name}.json"
 
     with open(world_file, "r") as f:
         data = json.load(f)

@@ -84,7 +84,7 @@ class NewGameScreen(Screen):
                 f"Lore Entries ({len(self.world_settings.ai.lore)}): {', '.join(self.world_settings.ai.lore.keys())}"
             )
             self.query_one("#game_variables", Static).update(
-                f"Game Variables ({len(self.world_settings.variables)}): {', '.join(self.world_settings.variables.keys())}"
+                f"Variables ({len(self.world_settings.variables)}): {', '.join(self.world_settings.variables.keys())}"
             )
             self.query_one("#items", Static).update(
                 f"Items ({len(self.world_settings.items)}): {', '.join(self.world_settings.items.keys())}"

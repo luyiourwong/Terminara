@@ -3,7 +3,7 @@ from datetime import datetime
 
 from textual.app import ComposeResult
 from textual.containers import Horizontal
-from textual.widgets import ListItem, Label, Static
+from textual.widgets import ListItem, Label
 
 
 class FileListItem(ListItem):

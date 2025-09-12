@@ -14,7 +14,7 @@ class MainMenuScreen(Screen):
     """The main menu screen for the game."""
 
     CSS = """
-    #settings_box {  
+    #settings_box {
         margin: 0;
         padding: 0;
         border: solid white;
