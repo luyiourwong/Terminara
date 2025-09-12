@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/luyiourwong/Terminara/compare/v0.3.0...v0.4.0) (2025-09-12)
+
+
+### Features
+
+* add AI configuration UI and secure credential storage ([daf94fc](https://github.com/luyiourwong/Terminara/commit/daf94fc38a99caaacfd3103e0052bec38e866ce3))
+* **ai:** add AI configuration UI and secure credential storage ([382b0af](https://github.com/luyiourwong/Terminara/commit/382b0afb5ea657d8323d2561566e300d4da0ee5b))
+
+
+### Bug Fixes
+
+* schema missing type for openai request ([dc87e4b](https://github.com/luyiourwong/Terminara/commit/dc87e4b26f828e2b53fe4e84fb9823bfa832faa8))
+
 ## [0.3.0](https://github.com/luyiourwong/Terminara/compare/v0.2.7...v0.3.0) (2025-09-11)
 
 
