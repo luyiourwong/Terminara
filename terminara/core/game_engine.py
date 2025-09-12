@@ -1,5 +1,3 @@
-import os
-
 from terminara.core.ai_narrator import AiNarrator
 from terminara.core.state_manager import StateManager
 from terminara.objects.game_state import GameState
@@ -40,11 +38,7 @@ class GameEngine:
                  load_scenario: Scenario | None = None):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
-        self.ai_narrator = AiNarrator(
-            host=os.getenv("OPENAI_API_HOST"),  # TODO load env for testing, change to config later?
-            key=os.getenv("OPENAI_API_KEY"),
-            model=os.getenv("OPENAI_API_MODEL")
-        )
+        self.ai_narrator = AiNarrator()
         if game_state is not None:
             self.state_manager.load_game(game_state)
         if load_scenario is not None:
