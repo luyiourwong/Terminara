@@ -53,7 +53,7 @@ python -m terminara.main > app.log 2>&1 &
 ```
 or Windows (background with start)
 ```bash
-python terminara\main.py > app.log 2>&1
+start /b python terminara\main.py > app.log 2>&1
 ```
 
 ### Start Method 4: Textual debug mode (To see the logs)

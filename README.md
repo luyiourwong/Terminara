@@ -78,7 +78,7 @@ Click "Apply" to save the settings.
 
 ## Links
 
-- [GitHub Repository](https://github.com/luyiourwong/VertexTuningGenerator)
+- [GitHub Repository](https://github.com/luyiourwong/Terminara)
 - [Contribute & Develop Guide](CONTRIBUTING.md)
 
 ## License
