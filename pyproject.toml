@@ -25,6 +25,12 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "flake8 ~= 7.3.0",
+    "textual-dev ~= 1.7.0"
+]
+
 [project.scripts]
 terminara = "terminara.main:main"
 
@@ -34,7 +40,7 @@ Issues = "https://github.com/luyiourwong/terminara/issues"
 
 # Read version from terminara/__init__.py (Auto versioning via Release Please)
 [tool.setuptools.dynamic]
-version = {attr = "terminara.__version__"}
+version = { attr = "terminara.__version__" }
 
 # Get packages
 [tool.setuptools.packages.find]

@@ -3,37 +3,7 @@
 A terminal-based ai simulation game.
 
 ## Usage
-### Method 1: Install as package (Recommended)
-```bash
-pip install -e .
-```
-then run the game with:
-```bash
-terminara
-```
-
-### Method 2: Direct execution
-Cross-platform way
-```bash
-python -m terminara.main
-```
-or
-```bash
-python terminara/main.py
-```
-
-### Method 3: Background execution for testing
-This is a long-live program, so if you want to test it, you can use this command instead:
-
-Unix/Linux/macOS
-```bash
-python -m terminara.main > app.log 2>&1 &
-```
-
-### Extra: Unit testing
-```bash
-python -m unittest discover -v
-```
+Read [CONTRIBUTING](CONTRIBUTING.md) for instructions on how to run the project in development mode.
 
 ## Objective
 
