@@ -6,7 +6,7 @@ A terminal-based ai simulation game.
 
 Supported platforms: Windows, Linux
 
-You can download the executable application from [lastest release](https://github.com/luyiourwong/Terminara/releases/latest).
+You can download the executable application from [latest release](https://github.com/luyiourwong/Terminara/releases/latest).
 
 The full compressed file includes the executable file and the default world settings file. You can only download the executable file if you are updating the game to the latest version.
 

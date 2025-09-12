@@ -18,6 +18,8 @@ class AiNarrator:
         self.host = keyring.get_password(SERVICE_NAME, "ai_host")
         self.key = keyring.get_password(SERVICE_NAME, "ai_key")
         self.model = keyring.get_password(SERVICE_NAME, "ai_model")
+        if not self.key or not self.model:
+            raise ValueError("AI API key and/or model not configured. Please set them in the main menu first.")
         self.connect()
 
     def connect(self):

@@ -45,7 +45,7 @@ class MainMenuScreen(Screen):
 
         with Container(id="settings_box"):
             yield Label("AI Settings: (OpenAI compatibility)")
-            yield Input(placeholder="Host (Leave empty to use the default OpenAI engpoint)", id="ai_host")
+            yield Input(placeholder="Host (Leave empty to use the default OpenAI endpoint)", id="ai_host")
             yield Input(placeholder="Key", id="ai_key", password=True)
             yield Input(placeholder="Model", id="ai_model")
             yield Button("Apply", id="apply_settings")
