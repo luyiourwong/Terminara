@@ -34,11 +34,11 @@ def get_initial_scenario() -> Scenario:
 
 
 class GameEngine:
-    def __init__(self, world_settings: WorldSettings, game_state: GameState | None = None,
+    def __init__(self, terminal_app, world_settings: WorldSettings, game_state: GameState | None = None,
                  load_scenario: Scenario | None = None):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
-        self.ai_narrator = AiNarrator()
+        self.ai_narrator = AiNarrator(config_manager=terminal_app.config_manager)
         if game_state is not None:
             self.state_manager.load_game(game_state)
         if load_scenario is not None:

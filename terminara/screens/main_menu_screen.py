@@ -1,11 +1,12 @@
-import keyring
+from typing import cast
+
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Container
 from textual.screen import Screen
 from textual.widgets import Button, Input, Label
 
-from terminara import SERVICE_NAME
+from terminara.main import TerminalApp
 from terminara.screens.load_game_screen import LoadGameScreen
 from terminara.screens.new_game_screen import NewGameScreen
 
@@ -55,10 +56,11 @@ class MainMenuScreen(Screen):
         """Set initial focus and load settings when the screen is mounted."""
         self.query_one("#start_new_game").focus()
 
-        # Load saved settings from keyring
-        ai_host = keyring.get_password(SERVICE_NAME, "ai_host")
-        ai_key = keyring.get_password(SERVICE_NAME, "ai_key")
-        ai_model = keyring.get_password(SERVICE_NAME, "ai_model")
+        # Load saved settings from config manager
+        terminal_app = cast(TerminalApp, self.app)
+        ai_host = terminal_app.config_manager.get_value("ai_host")
+        ai_key = terminal_app.config_manager.get_value("ai_key")
+        ai_model = terminal_app.config_manager.get_value("ai_model")
 
         if ai_host:
             self.query_one("#ai_host", Input).value = ai_host
@@ -74,14 +76,15 @@ class MainMenuScreen(Screen):
         elif event.button.id == "load_game":
             self.app.push_screen(LoadGameScreen())
         elif event.button.id == "apply_settings":
-            # Save the settings to keyring
+            # Save the settings to config manager
             ai_host = self.query_one("#ai_host", Input).value
             ai_key = self.query_one("#ai_key", Input).value
             ai_model = self.query_one("#ai_model", Input).value
 
-            keyring.set_password(SERVICE_NAME, "ai_host", ai_host)
-            keyring.set_password(SERVICE_NAME, "ai_key", ai_key)
-            keyring.set_password(SERVICE_NAME, "ai_model", ai_model)
+            terminal_app = cast(TerminalApp, self.app)
+            terminal_app.config_manager.set_value("ai_host", ai_host)
+            terminal_app.config_manager.set_value("ai_key", ai_key)
+            terminal_app.config_manager.set_value("ai_model", ai_model)
         elif event.button.id == "clear_settings":
             # Clear the input fields
             self.query_one("#ai_host", Input).value = ""
@@ -89,9 +92,10 @@ class MainMenuScreen(Screen):
             self.query_one("#ai_model", Input).value = ""
 
             # Delete the saved credentials
-            keyring.delete_password(SERVICE_NAME, "ai_host")
-            keyring.delete_password(SERVICE_NAME, "ai_key")
-            keyring.delete_password(SERVICE_NAME, "ai_model")
+            terminal_app = cast(TerminalApp, self.app)
+            terminal_app.config_manager.delete_value("ai_host")
+            terminal_app.config_manager.delete_value("ai_key")
+            terminal_app.config_manager.delete_value("ai_model")
 
     def action_press_button_1(self) -> None:
         """Directly trigger the first button (Start New Game)."""
