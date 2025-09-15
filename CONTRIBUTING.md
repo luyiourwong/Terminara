@@ -79,7 +79,7 @@ python -m unittest discover -v
 
 ## Pack to Executable
 
-### Manully Packaging
+### Manually Packaging
 
 1. **Prerequisites**
     ```bash

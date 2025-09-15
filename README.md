@@ -96,7 +96,7 @@ World settings are stored in the `terminara/data/worlds` directory. (in full rel
 ```
 
 ### Creating a new world
-There has a example world [aethelgard.json](terminara/data/worlds/aethelgard.json). You can follow the [schema](terminara/data/schema/world_schema.json) to create a new world.
+There is a example world [aethelgard.json](terminara/data/worlds/aethelgard.json). You can follow the [schema](terminara/data/schema/world_schema.json) to create a new world.
 
 ## Links
 
