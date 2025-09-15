@@ -66,8 +66,20 @@ then start project:
 textual run --dev terminara\main.py
 ```
 
+### Linting
+Setting file is in `.flake8`
+```bash
+python -m flake8 terminara
+```
 
-### Pack to Executable
+### Unit testing
+```bash
+python -m unittest discover -v
+```
+
+## Pack to Executable
+
+### Manully Packaging
 
 1. **Prerequisites**
     ```bash
@@ -80,16 +92,28 @@ textual run --dev terminara\main.py
     ```
 After packaging is complete, the executable will be located in the `dist` directory
 
-### Linting
-Setting file is in `.flake8`
-```bash
-python -m flake8 terminara
-```
+### Github Action Packaging
 
-### Unit testing
-```bash
-python -m unittest discover -v
-```
+Github action is used to build the release executable for Windows, Linux and MacOS.
+
+| Platform | Action Label     | OS                  | File Format                     |
+|----------|------------------|---------------------|---------------------------------|
+| Windows  | `windows-latest` | Windows Server 2025 | terminara_windows_[version].exe |
+| Linux    | `ubuntu-22.04`   | Ubuntu 22.04 LTS    | terminara_linux_[version]       |
+| MacOS    | `macos-latest`   | macOS 15 (Sequoia)  | terminara_macos_[version]       |
+
+Action will also generate a full compressed file that contains [data folder](terminara/data) and executable files, format is `terminara-[platform]-full-[version].zip`.
+
+## File Structure
+
+### Configuration Storage
+Configuration files are stored in OS-appropriate locations:
+
+| OS      | Location                                   |
+|---------|--------------------------------------------|
+| Windows | `%LOCALAPPDATA%\Terminara\`                |
+| Linux   | `~/.local/share/Terminara/`                |
+| MacOS   | `~/Library/Application Support/Terminara/` |
 
 ## Versioning
 

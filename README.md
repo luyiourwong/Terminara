@@ -8,6 +8,12 @@ You can download the executable application from [latest release](https://github
 
 The full compressed file includes the executable file and the default world settings file. You can only download the executable file if you are updating the game to the latest version.
 
+| OS      | Version                                          |
+|---------|--------------------------------------------------|
+| Windows | Windows 10, Windows 11                           |
+| Linux   | (GLIBC 2.35+) Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
+| MacOS   | macOS 13, macOS 14, macOS 15, macOS 26           |
+
 <details>
 <summary><strong>Manual run</strong></summary>
 
@@ -47,6 +53,8 @@ or
 python terminara/main.py
 ```
 On Windows, use `terminara\main.py`
+
+for more information, see [Contribute & Develop Guide](CONTRIBUTING.md).
 </details>
 
 ## AI Setup
@@ -73,6 +81,22 @@ Click "Apply" to save the settings.
 - **Host**: `https://generativelanguage.googleapis.com/v1beta/openai/`
 - **API Key**: `YOUR_GEMINI_API_KEY`
 - **Model**: `gemini-2.0-flash`
+
+## World Setup
+
+### Configuration Storage
+World settings are stored in the `terminara/data/worlds` directory. (in full release)
+```
+.
+|-- terminara/
+|   `-- data/
+|       |-- schema/           # Json schema files for world settings
+|       `-- worlds/           # Directory for world setting files
+`-- terminara_platform_version        # Executable file
+```
+
+### Creating a new world
+There has a example world [aethelgard.json](terminara/data/worlds/aethelgard.json). You can follow the [schema](terminara/data/schema/world_schema.json) to create a new world.
 
 ## Links
 

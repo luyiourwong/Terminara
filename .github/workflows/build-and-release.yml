@@ -12,14 +12,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-latest, ubuntu-latest ]
+        os: [ windows-latest, ubuntu-22.04, macos-latest ]
         include:
           - os: windows-latest
             output_name: terminara_windows_${{ github.event.release.tag_name }}.exe
             archive_name: terminara-windows-full-${{ github.event.release.tag_name }}.zip
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             output_name: terminara_linux_${{ github.event.release.tag_name }}
             archive_name: terminara-linux-full-${{ github.event.release.tag_name }}.zip
+          - os: macos-latest
+            output_name: terminara_macos_${{ github.event.release.tag_name }}
+            archive_name: terminara-macos-full-${{ github.event.release.tag_name }}.zip
 
     steps:
       - name: Checkout repository
@@ -45,7 +48,12 @@ jobs:
           move dist\terminara.exe dist\${{ matrix.output_name }}
 
       - name: Rename executable (Linux)
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          mv dist/terminara dist/${{ matrix.output_name }}
+
+      - name: Rename executable (macOS)
+        if: matrix.os == 'macos-latest'
         run: |
           mv dist/terminara dist/${{ matrix.output_name }}
 
@@ -61,7 +69,17 @@ jobs:
         shell: pwsh
 
       - name: Create full package (Linux)
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          rm -rf full-package
+          mkdir -p full-package
+          cp dist/${{ matrix.output_name }} full-package/
+          mkdir -p full-package/terminara/data
+          cp -r terminara/data/* full-package/terminara/data/
+          zip -r ${{ matrix.archive_name }} full-package/*
+
+      - name: Create full package (macOS)
+        if: matrix.os == 'macos-latest'
         run: |
           rm -rf full-package
           mkdir -p full-package
