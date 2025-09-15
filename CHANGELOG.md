@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.0](https://github.com/luyiourwong/Terminara/compare/v0.5.0...v0.6.0) (2025-09-15)
+
+
+### Features
+
+* add macOS build support and improve documentation ([5a3bc89](https://github.com/luyiourwong/Terminara/commit/5a3bc893d56b6b813bd9fb76cc56fa50fabe357e))
+* replace keyring with file-based config manager ([4c31b81](https://github.com/luyiourwong/Terminara/commit/4c31b8132936bf8e0a1462803d1ec8ce70bf6133))
+* widen python and dependency compatibility ([2bd1d8c](https://github.com/luyiourwong/Terminara/commit/2bd1d8c4798f1e36e285c7a9decf4a10bb358235))
+
 ## [0.5.0](https://github.com/luyiourwong/Terminara/compare/v0.4.0...v0.5.0) (2025-09-12)
 
 
