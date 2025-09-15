@@ -1,23 +1,22 @@
 import dataclasses
 
-import keyring
 from openai import OpenAI
 from openai.resources.chat import Completions
 from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, \
     ChatCompletionAssistantMessageParam
 
-from terminara import SERVICE_NAME
+from terminara.core.config_manager import ConfigManager
 from terminara.objects.game_state import GameState
 from terminara.objects.scenario import Choices
 from terminara.objects.world_settings import WorldSettings
 
 
 class AiNarrator:
-    def __init__(self):
+    def __init__(self, config_manager: ConfigManager):
         self.client = None
-        self.host = keyring.get_password(SERVICE_NAME, "ai_host")
-        self.key = keyring.get_password(SERVICE_NAME, "ai_key")
-        self.model = keyring.get_password(SERVICE_NAME, "ai_model")
+        self.host = config_manager.get_value("ai_host")
+        self.key = config_manager.get_value("ai_key")
+        self.model = config_manager.get_value("ai_model")
         if not self.key or not self.model:
             raise ValueError("AI API key and/or model not configured. Please set them in the main menu first.")
         self.connect()
