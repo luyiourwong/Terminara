@@ -3,6 +3,7 @@ import os
 import pathlib
 from typing import Union
 
+from terminara.objects.scenario import Scenario, Choice, ItemAction, VariableAction
 from terminara.objects.world_settings import (
     WorldSettings,
     WorldInfo,
@@ -10,7 +11,21 @@ from terminara.objects.world_settings import (
     Item,
     NumericVariable,
     TextVariable,
+    ScenarioSettings,
 )
+
+
+def _parse_scenario(scenario_data: dict) -> Scenario:
+    choices = []
+    for choice_data in scenario_data.get("choices", []):
+        actions = []
+        for action_data in choice_data.get("actions", []):
+            if "variable_name" in action_data:
+                actions.append(VariableAction(**action_data))
+            elif "item_name" in action_data:
+                actions.append(ItemAction(**action_data))
+        choices.append(Choice(text=choice_data["text"], actions=actions))
+    return Scenario(text=scenario_data["text"], choices=choices)
 
 
 def load_world(world_name: str) -> WorldSettings:
@@ -44,9 +59,15 @@ def load_world(world_name: str) -> WorldSettings:
         elif var_type == "text":
             variables[var_name] = TextVariable(**var_data)
 
+    scenario_settings = ScenarioSettings()
+    if "scenario" in data and "init" in data["scenario"]:
+        scenario_data = data["scenario"]["init"]
+        scenario_settings.init = _parse_scenario(scenario_data)
+
     return WorldSettings(
         world=world_info,
         ai=ai_prompt,
         items=items,
         variables=variables,
+        scenario=scenario_settings,
     )

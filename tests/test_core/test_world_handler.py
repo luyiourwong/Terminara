@@ -3,12 +3,14 @@ from pathlib import Path
 import json
 
 from terminara.core.world_handler import load_world
+from terminara.objects.scenario import Scenario, Choice, VariableAction
 from terminara.objects.world_settings import (
     WorldSettings,
     WorldInfo,
     AiPrompt,
     Item,
     NumericVariable,
+    ScenarioSettings,
 )
 
 
@@ -39,6 +41,25 @@ class TestWorldHandler(unittest.TestCase):
                     "attributes": {"heal_amount": 20},
                 }
             },
+            "scenario": {
+                "init": {
+                    "text": "You stand at the entrance to a mysterious cave in the test world.",
+                    "choices": [
+                        {
+                            "text": "1. Enter the cave boldly"
+                        },
+                        {
+                            "text": "2. Peek inside cautiously",
+                            "actions": [
+                                {
+                                    "variable_name": "health",
+                                    "value": "-10"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
         }
         self.test_world_file = self.worlds_dir / "test_world.json"
         with open(self.test_world_file, "w") as f:
@@ -64,6 +85,20 @@ class TestWorldHandler(unittest.TestCase):
         self.assertIn("potion", world_settings.items)
         self.assertIsInstance(world_settings.items["potion"], Item)
         self.assertEqual(world_settings.items["potion"].name, "Health Potion")
+
+        # Test scenario loading
+        self.assertIsInstance(world_settings.scenario, ScenarioSettings)
+        self.assertIsNotNone(world_settings.scenario.init)
+        self.assertIsInstance(world_settings.scenario.init, Scenario)
+        self.assertEqual(world_settings.scenario.init.text, "You stand at the entrance to a mysterious cave in the test world.")
+        self.assertEqual(len(world_settings.scenario.init.choices), 2)
+        self.assertEqual(world_settings.scenario.init.choices[0].text, "1. Enter the cave boldly")
+        self.assertEqual(len(world_settings.scenario.init.choices[0].actions), 0)
+        self.assertEqual(world_settings.scenario.init.choices[1].text, "2. Peek inside cautiously")
+        self.assertEqual(len(world_settings.scenario.init.choices[1].actions), 1)
+        self.assertIsInstance(world_settings.scenario.init.choices[1].actions[0], VariableAction)
+        self.assertEqual(world_settings.scenario.init.choices[1].actions[0].variable_name, "health")
+        self.assertEqual(world_settings.scenario.init.choices[1].actions[0].value, "-10")
 
 
 if __name__ == "__main__":

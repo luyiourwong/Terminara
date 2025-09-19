@@ -44,7 +44,10 @@ class GameEngine:
         if load_scenario is not None:
             self.current_scenario = load_scenario
         else:
-            self.current_scenario = get_initial_scenario()
+            if self.world_settings.scenario and self.world_settings.scenario.init:
+                self.current_scenario = self.world_settings.scenario.init
+            else:
+                self.current_scenario = get_initial_scenario()
 
     def get_current_scenario(self) -> Scenario:
         return self.current_scenario

@@ -65,6 +65,14 @@
       "additionalProperties": {
         "$ref": "#/definitions/item"
       }
+    },
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "init": {
+          "$ref": "#/definitions/scenario"
+        }
+      }
     }
   },
   "required": [
@@ -136,6 +144,78 @@
         "type",
         "description",
         "value"
+      ]
+    },
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/choice"
+          }
+        }
+      },
+      "required": [
+        "text",
+        "choices"
+      ]
+    },
+    "choice": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/variableAction"
+              },
+              {
+                "$ref": "#/definitions/itemAction"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "variableAction": {
+      "type": "object",
+      "properties": {
+        "variable_name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "variable_name",
+        "value"
+      ]
+    },
+    "itemAction": {
+      "type": "object",
+      "properties": {
+        "item_name": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "item_name",
+        "quantity"
       ]
     }
   }
