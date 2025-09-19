@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/luyiourwong/Terminara/compare/v0.6.0...v0.7.0) (2025-09-19)
+
+
+### Features
+
+* add new interactive scenario to Aethelgard world configuration ([fa34c6c](https://github.com/luyiourwong/Terminara/commit/fa34c6c1c9fe2a9030a80d38b0ba1045996bab53))
+* add scenario testing for new init scenario ([b3b5b4a](https://github.com/luyiourwong/Terminara/commit/b3b5b4ae776463df242dfa146d10cd1d98c15fde))
+* centralize AI config keys and add python version to SonarCloud ([823128b](https://github.com/luyiourwong/Terminara/commit/823128b156f2c7a6dc3c07440e3716a02806abf3))
+
+
+### Bug Fixes
+
+* remove SonarCloud integration ([fd7c85f](https://github.com/luyiourwong/Terminara/commit/fd7c85f0779811f62ba21013604ad125784d2529))
+
 ## [0.6.0](https://github.com/luyiourwong/Terminara/compare/v0.5.0...v0.6.0) (2025-09-15)
 
 
