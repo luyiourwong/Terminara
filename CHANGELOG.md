@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/luyiourwong/Terminara/compare/v0.7.0...v0.7.1) (2025-09-19)
+
+
+### Bug Fixes
+
+* add UTF-8 encoding support and chinese Aethelgard world configuration ([4eeef8b](https://github.com/luyiourwong/Terminara/commit/4eeef8bc3dad57af7a4acb97e4b6bf6835330593))
+
 ## [0.7.0](https://github.com/luyiourwong/Terminara/compare/v0.6.0...v0.7.0) (2025-09-19)
 
 
