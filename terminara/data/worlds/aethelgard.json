@@ -32,5 +32,42 @@
         "hp": 20
       }
     }
+  },
+  "scenario": {
+    "init": {
+      "text": "You awaken in the shadowed halls of Valhalla's outskirts in Aethelgard, a realm woven from Norse myths. The air hums with the whispers of Valkyries, and the distant clash of swords echoes from Ragnarok's edge. A spectral figure, perhaps a draugr, beckons you forward. What do you do?",
+      "choices": [
+        {
+          "text": "1. Approach the spectral figure cautiously"
+        },
+        {
+          "text": "2. Chant an ancient rune to reveal its true nature",
+          "actions": [
+            {
+              "variable_name": "level",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "text": "3. Flee into the misty woods",
+          "actions": [
+            {
+              "variable_name": "hp",
+              "value": "-10"
+            }
+          ]
+        },
+        {
+          "text": "4. Search the ground for a forgotten relic",
+          "actions": [
+            {
+              "item_name": "Potion1",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
   }
 }
