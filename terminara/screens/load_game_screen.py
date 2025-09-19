@@ -84,7 +84,7 @@ class LoadGameScreen(ModalScreen):
         if not os.path.exists(file_path):
             self.log(f"Error: Save file '{file_path}' not found.")
             return
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             save_data = json.load(f)
 
         world_name = save_data.get("world")

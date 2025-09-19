@@ -1,0 +1,73 @@
+{
+  "world": {
+    "name": "aethelgard_zh",
+    "description": "一个神话的世界。"
+  },
+  "ai": {
+    "system": "这里是aethelgard，一个神话的世界。",
+    "prompt": "生成基于北欧神话的故事。",
+    "lore": {
+      "leveling": "玩家可以通过做出勇敢的事来升级。"
+    }
+  },
+  "variables": {
+    "hp": {
+      "type": "numeric",
+      "description": "玩家的生命值，当数值为0时游戏结束。",
+      "value": 100,
+      "min_value": 0,
+      "max_value": 100
+    },
+    "level": {
+      "type": "numeric",
+      "description": "玩家的等级，描述了玩家的实力。",
+      "value": 1
+    }
+  },
+  "items": {
+    "Potion1": {
+      "name": "治疗药水",
+      "description": "用来治愈的药水。",
+      "attributes": {
+        "hp": 20
+      }
+    }
+  },
+  "scenario": {
+    "init": {
+      "text": "你在雅特加德（Aethelgard）的瓦尔哈拉（Valhalla）郊区的阴影大厅中醒来，这是一个由北欧神话编织而成的领域。空气中回荡着女武神（Valkyries）的低语，远处传来诸神黄昏（Ragnarok）边缘的剑击声。一个幽灵般的身影，也许是尸鬼（draugr），向你招手。你该怎么做？",
+      "choices": [
+        {
+          "text": "1. 小心地接近幽灵般的身影"
+        },
+        {
+          "text": "2. 吟唱古老的符文以揭示其真实面目",
+          "actions": [
+            {
+              "variable_name": "level",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "text": "3. 逃入迷雾森林",
+          "actions": [
+            {
+              "variable_name": "hp",
+              "value": "-10"
+            }
+          ]
+        },
+        {
+          "text": "4. 在地上寻找被遗忘的遗物",
+          "actions": [
+            {
+              "item_name": "Potion1",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

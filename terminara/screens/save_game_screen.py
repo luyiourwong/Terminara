@@ -108,8 +108,8 @@ class SaveGameScreen(ModalScreen):
         }
         file_path = os.path.join(SAVES_DIR, file_name)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path, "w") as f:
-            json.dump(save_data, f, indent=4)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(save_data, f, ensure_ascii=False, indent=4)
         self._refresh_save_list()
         self.app.pop_screen()
 
