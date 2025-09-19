@@ -9,6 +9,7 @@ from textual.widgets import Button, Input, Label
 from terminara.main import TerminalApp
 from terminara.screens.load_game_screen import LoadGameScreen
 from terminara.screens.new_game_screen import NewGameScreen
+from terminara import AI_HOST_KEY, AI_KEY_KEY, AI_MODEL_KEY
 
 
 class MainMenuScreen(Screen):
@@ -58,9 +59,9 @@ class MainMenuScreen(Screen):
 
         # Load saved settings from config manager
         terminal_app = cast(TerminalApp, self.app)
-        ai_host = terminal_app.config_manager.get_value("ai_host")
-        ai_key = terminal_app.config_manager.get_value("ai_key")
-        ai_model = terminal_app.config_manager.get_value("ai_model")
+        ai_host = terminal_app.config_manager.get_value(AI_HOST_KEY)
+        ai_key = terminal_app.config_manager.get_value(AI_KEY_KEY)
+        ai_model = terminal_app.config_manager.get_value(AI_MODEL_KEY)
 
         if ai_host:
             self.query_one("#ai_host", Input).value = ai_host
@@ -82,9 +83,9 @@ class MainMenuScreen(Screen):
             ai_model = self.query_one("#ai_model", Input).value
 
             terminal_app = cast(TerminalApp, self.app)
-            terminal_app.config_manager.set_value("ai_host", ai_host)
-            terminal_app.config_manager.set_value("ai_key", ai_key)
-            terminal_app.config_manager.set_value("ai_model", ai_model)
+            terminal_app.config_manager.set_value(AI_HOST_KEY, ai_host)
+            terminal_app.config_manager.set_value(AI_KEY_KEY, ai_key)
+            terminal_app.config_manager.set_value(AI_MODEL_KEY, ai_model)
         elif event.button.id == "clear_settings":
             # Clear the input fields
             self.query_one("#ai_host", Input).value = ""
@@ -93,9 +94,9 @@ class MainMenuScreen(Screen):
 
             # Delete the saved credentials
             terminal_app = cast(TerminalApp, self.app)
-            terminal_app.config_manager.delete_value("ai_host")
-            terminal_app.config_manager.delete_value("ai_key")
-            terminal_app.config_manager.delete_value("ai_model")
+            terminal_app.config_manager.delete_value(AI_HOST_KEY)
+            terminal_app.config_manager.delete_value(AI_KEY_KEY)
+            terminal_app.config_manager.delete_value(AI_MODEL_KEY)
 
     def action_press_button_1(self) -> None:
         """Directly trigger the first button (Start New Game)."""

@@ -1,5 +1,5 @@
-[![Quality Gate Status]()](
-[![Coverage]()]()
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=luyiourwong_Terminara&metric=alert_status&token=9656e42def76d262c45d1417496ac053f54c30e9)](https://sonarcloud.io/summary/new_code?id=luyiourwong_Terminara)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=luyiourwong_Terminara&metric=coverage&token=9656e42def76d262c45d1417496ac053f54c30e9)](https://sonarcloud.io/summary/new_code?id=luyiourwong_Terminara)
 
 # Contributing
 

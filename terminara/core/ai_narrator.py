@@ -6,6 +6,7 @@ from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUs
     ChatCompletionAssistantMessageParam
 
 from terminara.core.config_manager import ConfigManager
+from terminara import AI_HOST_KEY, AI_KEY_KEY, AI_MODEL_KEY
 from terminara.objects.game_state import GameState
 from terminara.objects.scenario import Choices
 from terminara.objects.world_settings import WorldSettings
@@ -14,9 +15,9 @@ from terminara.objects.world_settings import WorldSettings
 class AiNarrator:
     def __init__(self, config_manager: ConfigManager):
         self.client = None
-        self.host = config_manager.get_value("ai_host")
-        self.key = config_manager.get_value("ai_key")
-        self.model = config_manager.get_value("ai_model")
+        self.host = config_manager.get_value(AI_HOST_KEY)
+        self.key = config_manager.get_value(AI_KEY_KEY)
+        self.model = config_manager.get_value(AI_MODEL_KEY)
         if not self.key or not self.model:
             raise ValueError("AI API key and/or model not configured. Please set them in the main menu first.")
         self.connect()
