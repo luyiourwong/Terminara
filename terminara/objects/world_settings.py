@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
-from typing import Dict, Any, Union
+from typing import Dict, Any, Union, Optional
 from abc import ABC
+
+from terminara.objects.scenario import Scenario
 
 
 @dataclass
@@ -48,9 +50,16 @@ class WorldInfo:
 
 
 @dataclass
+class ScenarioSettings:
+    """Represents the scenario settings of the game."""
+    init: Optional[Scenario] = None
+
+
+@dataclass
 class WorldSettings:
     """Represents the world settings of the game."""
     world: WorldInfo = field(default_factory=WorldInfo)
     ai: AiPrompt = field(default_factory=AiPrompt)
     variables: Dict[str, GameVariable] = field(default_factory=dict)
     items: Dict[str, Item] = field(default_factory=dict)
+    scenario: ScenarioSettings = field(default_factory=ScenarioSettings)
