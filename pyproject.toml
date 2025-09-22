@@ -36,6 +36,7 @@ classifiers = [
 [project.optional-dependencies]
 dev = [
     "flake8 ~= 7.3.0",
+    "pytest-cov ~= 7.0.0",
     "textual-dev ~= 1.7.0"
 ]
 

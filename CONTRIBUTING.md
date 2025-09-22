@@ -7,6 +7,9 @@ Will accept contributions after 1.0.0 release.
 
 ## Development
 
+<details>
+<summary>Installation & Running</summary>
+
 ### Installation
 
 1.  **Clone the repository:**
@@ -65,6 +68,7 @@ then start project:
 ```bash
 textual run --dev terminara\main.py
 ```
+</details>
 
 ### Linting
 Setting file is in `.flake8`
@@ -72,10 +76,19 @@ Setting file is in `.flake8`
 python -m flake8 terminara
 ```
 
-### Unit testing
+### Unit testing & Coverage
 ```bash
-python -m unittest discover -v
+python -m pytest --cov=terminara tests
 ```
+
+## Pull Request Guidelines
+
+When you submit a pull request, a few things will happen automatically:
+
+- **Automatic Summary & Review**: [gemini-code-assist](https://github.com/apps/gemini-code-assist) will automatically summarize the changes and perform a preliminary review. You don't need to follow all the suggestions from the bot.
+- **CI/CD**: A continuous integration pipeline will run to ensure the code quality. This includes running [unit tests](#unit-testing--coverage) and [linting](#linting).
+
+To ensure a smooth process, it is highly recommended that you run the tests and linter locally before pushing your changes.
 
 ## Pack to Executable
 
@@ -92,9 +105,12 @@ python -m unittest discover -v
     ```
 After packaging is complete, the executable will be located in the `dist` directory
 
+<details>
+<summary>Release Packaging</summary>
+
 ### Github Action Packaging
 
-Github action is used to build the release executable for Windows, Linux and MacOS.
+Github action is used to build the release executable for Windows, Linux and MacOS. This will automatically trigger when a new release is merged to the main branch..
 
 | Platform | Action Label     | OS                  | File Format                     |
 |----------|------------------|---------------------|---------------------------------|
@@ -103,6 +119,7 @@ Github action is used to build the release executable for Windows, Linux and Mac
 | MacOS    | `macos-latest`   | macOS 15 (Sequoia)  | terminara_macos_[version]       |
 
 Action will also generate a full compressed file that contains [data folder](terminara/data) and executable files, format is `terminara-[platform]-full-[version].zip`.
+</details>
 
 ## File Structure
 

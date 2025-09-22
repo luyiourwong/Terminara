@@ -13,3 +13,5 @@
 /terminara/data/saves/*.json
 /.roo/
 .env
+/.coverage
+/coverage.xml
