@@ -61,7 +61,7 @@ for more information, see [Contribute & Develop Guide](CONTRIBUTING.md).
 
 After starting the application, you need to configure the AI settings from the main menu.
 
-![AI Settings](doc/ai_settings.png)
+![AI Settings](docs/assets/ai_settings.png)
 
 You need to fill in the following fields: (OpenAI compatibility API)
 - **Host**: The API endpoint. Leave it empty to use the default OpenAI endpoint.
