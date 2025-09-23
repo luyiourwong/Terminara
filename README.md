@@ -100,7 +100,7 @@ There is a example world [aethelgard.json](terminara/data/worlds/aethelgard.json
 
 ## Links
 
-- [Github Pages](https://luyiourwong.github.io/Terminara)
+- [GitHub Pages](https://luyiourwong.github.io/Terminara)
 - [GitHub Repository](https://github.com/luyiourwong/Terminara)
 - [Contribute & Develop Guide](CONTRIBUTING.md)
 
