@@ -147,24 +147,12 @@
         }
 
         .demo-image::before {
-            content: '> Loading game...';
+            content: '> ';
             color: var(--text-primary);
             font-size: 14px;
             position: absolute;
             top: 10px;
             left: 20px;
-        }
-
-        .demo-placeholder {
-            background: var(--bg-dark);
-            height: 300px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            border: 1px dashed var(--border);
-            margin-top: 30px;
         }
 
         .cta-buttons {
@@ -382,6 +370,10 @@
             top: 20px;
             right: 20px;
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
         }
 
         .lang-btn {
@@ -399,6 +391,11 @@
         .lang-btn:hover {
             background: var(--text-primary);
             color: var(--bg-dark);
+        }
+
+        .lang-label {
+            color: var(--text-secondary);
+            font-size: 12px;
         }
 
         /* Responsive */
@@ -429,14 +426,21 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .center-btn {
+            text-align: center;
+            margin: 40px 0;
+        }
     </style>
 </head>
 <body>
 <!-- Language Selector -->
 <div class="lang-selector">
+    <label for="langSelect" class="lang-label" data-i18n="lang-label">Language</label>
     <select class="lang-btn" id="langSelect">
         <option value="en">English</option>
         <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
     </select>
 </div>
 
@@ -460,9 +464,7 @@
                     </p>
 
                     <div class="demo-image">
-                        <div class="demo-placeholder" data-i18n="demo-placeholder">
-                            [Game Screenshot Area]
-                        </div>
+                        <img src="assets/demo.gif" alt="Terminara Demo" style="max-width: 100%; height: auto; border-radius: 4px; display: block; margin: 0 auto;">
                     </div>
 
                     <div class="cta-buttons">
@@ -555,10 +557,11 @@
 <section class="installation">
     <div class="container">
         <h2 class="section-title" data-i18n="install-title">Download & Install</h2>
-
-        <a href="https://github.com/luyiourwong/Terminara/releases/latest" class="btn" data-i18n="btn-executable">
-            > Get the pre-built executable
-        </a>
+        <div class="center-btn">
+            <a href="https://github.com/luyiourwong/Terminara/releases/latest" class="btn btn-secondary" data-i18n="btn-executable">
+                > Get the pre-built executable
+            </a>
+        </div>
 
         <div class="terminal-window">
             <div class="terminal-header">
@@ -697,7 +700,6 @@
         'en': {
             'title': 'Terminara - An AI Terminal Adventures',
             'subtitle': 'Experience an infinitely replayable AI-driven scenario game in your terminal. Load any world script and let the AI create a unique adventure for you.',
-            'demo-placeholder': '[Game Screenshot Area]',
             'btn-github': '> View Source Code',
             'btn-release': '> Download Release',
             'btn-executable': '> Get the pre-built executable',
@@ -725,12 +727,12 @@
             'worlds-title': 'Create Your Custom World!',
             'worlds-desc1': 'Want to venture into a medieval fantasy world? Or survive in a cyberpunk metropolis?',
             'worlds-desc2': 'With a simple JSON configuration file, you can create any world setting you can imagine. Define characters, backstories, available items, and unique game rules.',
-            'worlds-desc3': 'The AI will dynamically generate scenarios and dialogues that fit your world setting, giving each custom world a unique gameplay experience.'
+            'worlds-desc3': 'The AI will dynamically generate scenarios and dialogues that fit your world setting, giving each custom world a unique gameplay experience.',
+            'lang-label': 'Language'
         },
         'zh-Hant': {
             'title': 'Terminara',
             'subtitle': '在終端機中體驗無限可能的AI驅動情境遊戲。載入任意世界劇本，讓AI為你創造獨特的冒險故事。',
-            'demo-placeholder': '[遊戲截圖展示區域]',
             'btn-github': '> 查看原始碼',
             'btn-release': '> 下載發行版',
             'btn-executable': '> 下載可執行文件',
@@ -758,7 +760,41 @@
             'worlds-title': '創建自訂世界！',
             'worlds-desc1': '想要在<span class="worlds-highlight">中世紀魔法世界</span>中冒險？還是在<span class="worlds-highlight">賽博龐克未來都市</span>中求生？',
             'worlds-desc2': '透過簡單的JSON配置檔案，你可以創造任何你想像得到的世界設定。定義角色、背景故事、可用物品、以及獨特的遊戲規則。',
-            'worlds-desc3': 'AI會根據你的世界設定，動態生成符合該世界觀的情境和對話，讓每個自訂世界都有其獨特的遊戲體驗。'
+            'worlds-desc3': 'AI會根據你的世界設定，動態生成符合該世界觀的情境和對話，讓每個自訂世界都有其獨特的遊戲體驗。',
+            'lang-label': '語言'
+        },
+        'zh-Hans': {
+            'title': 'Terminara',
+            'subtitle': '在终端中体验无限可能的AI驱动情景游戏。加载任意世界剧本，让AI为你创造独特的冒险故事。',
+            'btn-github': '> 查看源代码',
+            'btn-release': '> 下载发行版',
+            'btn-executable': '> 下载可执行文件',
+            'features-title': '核心特色',
+            'features-terminal': 'features.exe',
+            'feature1-title': 'AI驱动的情景生成',
+            'feature1-desc': '先进的AI技术为每个选择创造独特的故事分支，确保每次游戏都有全新体验。',
+            'feature2-title': '加载任意世界剧本',
+            'feature2-desc': '支持自定义世界设定，从科幻未来到奇幻中古，创造属于你的独特冒险世界。',
+            'feature3-title': 'BYOK & 隐私保护',
+            'feature3-desc': '使用你自己的API密钥，确保完全的隐私控制和成本透明。',
+            'feature4-title': '完整的存读档系统',
+            'feature4-desc': '随时保存游戏进度，加载任意存档点继续你的冒险。',
+            'install-title': '下载 & 安装',
+            'install-terminal': 'installation.sh',
+            'manual-install-title': '或由 Python 进行安装:',
+            'step1-title': '安装 Python',
+            'step1-desc': '确保你的系统已安装 Python 3.8 或更新版本',
+            'step2-title': '下载游戏',
+            'step2-desc': '从 GitHub Release 下载最新版本',
+            'step3-title': '安装依赖',
+            'step3-desc': '安装必要的 Python 套件',
+            'step4-title': '开始游戏',
+            'step4-desc': '执行游戏并开始你的冒险',
+            'worlds-title': '创建自定义世界！',
+            'worlds-desc1': '想要在<span class="worlds-highlight">中世纪魔法世界</span>中冒险？还是在<span class="worlds-highlight">赛博朋克未来都市</span>中求生？',
+            'worlds-desc2': '通过简单的JSON配置文件，你可以创造任何你想象得到的世界设定。定义角色、背景故事、可用物品、以及独特的游戏规则。',
+            'worlds-desc3': 'AI会根据你的世界设定，动态生成符合该世界观的情景和对话，让每个自定义世界都有其独特的游戏体验。',
+            'lang-label': '语言'
         }
     };
 
@@ -790,7 +826,14 @@
     // Set initial language based on browser settings or default
     document.addEventListener('DOMContentLoaded', () => {
         const userLang = navigator.language || navigator.userLanguage;
-        const lang = userLang.startsWith('zh') ? 'zh-Hant' : 'en';
+        let lang = 'en';
+        if (userLang.startsWith('zh')) {
+            if (userLang.toLowerCase() === 'zh-cn' || userLang.toLowerCase() === 'zh-hans') {
+                lang = 'zh-Hans';
+            } else {
+                lang = 'zh-Hant';
+            }
+        }
         updateLanguage(lang);
     });
 
