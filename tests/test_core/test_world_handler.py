@@ -1,16 +1,16 @@
+import json
 import unittest
 from pathlib import Path
-import json
 
 from terminara.core.world_handler import load_world
-from terminara.objects.scenario import Scenario, Choice, VariableAction
+from terminara.objects.scenario import Scenario, VariableAction
 from terminara.objects.world_settings import (
     WorldSettings,
     WorldInfo,
     AiPrompt,
     Item,
     NumericVariable,
-    ScenarioSettings,
+    ScenarioSettings, TextVariable,
 )
 
 
@@ -32,6 +32,11 @@ class TestWorldHandler(unittest.TestCase):
                     "value": 100,
                     "min_value": 0,
                     "max_value": 100,
+                },
+                "rank": {
+                    "type": "text",
+                    "description": "Player rank",
+                    "value": "Novice",
                 }
             },
             "items": {
@@ -54,6 +59,15 @@ class TestWorldHandler(unittest.TestCase):
                                 {
                                     "variable_name": "health",
                                     "value": "-10"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "3. Flee into the misty woods",
+                            "actions": [
+                                {
+                                    "item_name": "potion",
+                                    "quantity": 1
                                 }
                             ]
                         }
@@ -81,6 +95,8 @@ class TestWorldHandler(unittest.TestCase):
         self.assertIn("health", world_settings.variables)
         self.assertIsInstance(world_settings.variables["health"], NumericVariable)
         self.assertEqual(world_settings.variables["health"].value, 100)
+        self.assertIsInstance(world_settings.variables["rank"], TextVariable)
+        self.assertEqual(world_settings.variables["rank"].value, "Novice")
 
         self.assertIn("potion", world_settings.items)
         self.assertIsInstance(world_settings.items["potion"], Item)
@@ -91,7 +107,7 @@ class TestWorldHandler(unittest.TestCase):
         self.assertIsNotNone(world_settings.scenario.init)
         self.assertIsInstance(world_settings.scenario.init, Scenario)
         self.assertEqual(world_settings.scenario.init.text, "You stand at the entrance to a mysterious cave in the test world.")
-        self.assertEqual(len(world_settings.scenario.init.choices), 2)
+        self.assertEqual(len(world_settings.scenario.init.choices), 3)
         self.assertEqual(world_settings.scenario.init.choices[0].text, "1. Enter the cave boldly")
         self.assertEqual(len(world_settings.scenario.init.choices[0].actions), 0)
         self.assertEqual(world_settings.scenario.init.choices[1].text, "2. Peek inside cautiously")
