@@ -1,5 +1,7 @@
 # Terminara
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/luyiourwong/Terminara)
+
 A terminal-based ai simulation game.
 
 ## How to use
