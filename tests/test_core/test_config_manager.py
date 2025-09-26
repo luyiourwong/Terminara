@@ -109,10 +109,7 @@ class TestConfigManager:
         config_data = {"existing_key": "value"}
         config_manager.save_config(config_data)
 
-        try:
-            config_manager.delete_value("nonexistent_key")
-        except Exception as e:
-            pytest.fail(f"Deleting a nonexistent key raised an exception: {e}")
+        config_manager.delete_value("nonexistent_key")
 
         # Check that the original data is untouched
         assert config_manager.get_config() == config_data
