@@ -9,7 +9,7 @@ description = "Terminal-based adventure game"
 authors = [
     { name = "Lu Yiou Rwong", email = "35396353+luyiourwong@users.noreply.github.com" }
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "textual >= 6.0.0, <7",
     "openai >= 1.107.0, <2"
@@ -19,8 +19,6 @@ classifiers = [
     "Intended Audience :: End Users/Desktop",
     "Topic :: Games/Entertainment",
     "Topic :: Games/Entertainment :: Role-Playing",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
