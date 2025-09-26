@@ -1,11 +1,8 @@
-import json
 from pathlib import Path
 import pytest
 from terminara.core.config_manager import ConfigManager
 import platform
-import os
 
-@pytest.fixture
 @pytest.fixture
 def config_manager(tmp_path: Path, monkeypatch) -> ConfigManager:
     """
