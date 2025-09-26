@@ -28,11 +28,13 @@
       </div>
     </div>
   </details>
+
 </div>
 
 # Terminara
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/luyiourwong/Terminara)
+![Python support](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
 
 A terminal-based ai simulation game.
 
