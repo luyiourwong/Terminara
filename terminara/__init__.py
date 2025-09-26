@@ -1,4 +1,4 @@
-__version__ = "0.7.1"
+__version__ = "0.8.0"
 
 AI_HOST_KEY = "ai_host"
 AI_KEY_KEY = "ai_key"
