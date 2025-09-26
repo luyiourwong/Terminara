@@ -15,7 +15,7 @@ dependencies = [
     "openai >= 1.107.0, <2"
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
     "Topic :: Games/Entertainment",
     "Topic :: Games/Entertainment :: Role-Playing",
@@ -51,4 +51,4 @@ version = { attr = "terminara.__version__" }
 
 # Get packages
 [tool.setuptools.packages.find]
-# exclude = ["tests*", "docs*"]
+exclude = ["tests*", "docs*", ".github*", ".gemini*"]
