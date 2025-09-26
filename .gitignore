@@ -15,3 +15,10 @@
 .env
 /.coverage
 /coverage.xml
+
+# Virtual environment
+/.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]

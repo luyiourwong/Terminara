@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, Any, Union, Optional
+from typing import Dict, Any, Optional
 from abc import ABC
 
 from terminara.objects.scenario import Scenario
@@ -15,9 +15,9 @@ class GameVariable(ABC):
 @dataclass
 class NumericVariable(GameVariable):
     """Represents a numeric variable in the game."""
-    value: Union[int, float]
-    min_value: Union[int, float, None] = None
-    max_value: Union[int, float, None] = None
+    value: int | float
+    min_value: int | float | None = None
+    max_value: int | float | None = None
 
 
 @dataclass
