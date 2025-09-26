@@ -6,7 +6,8 @@ import platform
 import os
 
 @pytest.fixture
-def config_manager(tmp_path: Path) -> ConfigManager:
+@pytest.fixture
+def config_manager(tmp_path: Path, monkeypatch) -> ConfigManager:
     """
     Fixture to create a ConfigManager that uses a temporary directory for its config file.
     """
@@ -14,21 +15,14 @@ def config_manager(tmp_path: Path) -> ConfigManager:
     # This is to isolate tests from the user's actual configuration
     # and from each other.
 
-    original_init = ConfigManager.__init__
-
     def mock_init(self):
         self.config_dir = tmp_path / "Terminara"
         self.config_dir.mkdir(parents=True, exist_ok=True)
         self.config_file = self.config_dir / "config.json"
 
-    ConfigManager.__init__ = mock_init
+    monkeypatch.setattr(ConfigManager, "__init__", mock_init)
 
-    manager = ConfigManager()
-
-    # Restore original init after creating the instance
-    ConfigManager.__init__ = original_init
-
-    return manager
+    return ConfigManager()
 
 
 class TestConfigManager:
