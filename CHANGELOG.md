@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.8.0](https://github.com/luyiourwong/Terminara/compare/v0.7.1...v0.8.0) (2025-09-26)
+
+
+### Features
+
+* Add unit tests for ConfigManager ([98154f8](https://github.com/luyiourwong/Terminara/commit/98154f887c91870f457a50768201c11184b41d4f))
+* Add unit tests for ConfigManager ([2056734](https://github.com/luyiourwong/Terminara/commit/2056734d0c32ca8e9a4e66f5d72712188e888ea6))
+* extend test coverage and add coverage configuration ([531320e](https://github.com/luyiourwong/Terminara/commit/531320e350a87c6b08178da979c62b639f8104e9))
+
+
+### Bug Fixes
+
+* replace typing.Union with modern union syntax in NumericVariable ([59817e3](https://github.com/luyiourwong/Terminara/commit/59817e3f7a332d1bd0a003953af7217b22eae4e2))
+* replace typing.Union with modern union syntax in NumericVariable ([a70bcb7](https://github.com/luyiourwong/Terminara/commit/a70bcb74a589945df4b3faf99eb40011f26cf1b6))
+* update development status and exclude unnecessary directories ([8760725](https://github.com/luyiourwong/Terminara/commit/8760725362eb35ce34433c93dc2110ec8c620252))
+* update Python version requirement to 3.10+ for union syntax ([329e05d](https://github.com/luyiourwong/Terminara/commit/329e05d886c6580d4313dd2a9c935d3cca31c42c))
+
+
+### Documentation
+
+* Auto-translate README and Wiki ([9dc960e](https://github.com/luyiourwong/Terminara/commit/9dc960e7c25b8ea778dee0ce504a929c51a2a61d))
+
 ## [0.7.1](https://github.com/luyiourwong/Terminara/compare/v0.7.0...v0.7.1) (2025-09-19)
 
 
