@@ -23,17 +23,13 @@ For bug reports, feature suggestions, or questions, please use the [Issues](http
     cd Terminara
     ```
 
-2.  **Create a virtual environment:**
+2.  **Install environment:**
+    We recommend using [uv>=0.4.27](https://github.com/astral-sh/uv) to synchronize locked dependencies.
     ```bash
-    python -m venv .venv
+    uv sync
     source .venv/bin/activate
     ```
     On Windows, use `.venv\Scripts\activate`
-
-3.  **Install the dependencies (dev version):**
-    ```bash
-    pip install -e .[dev]
-    ```
 
 ### Start Method 1: Using the installed command (Recommended)
 After installation, run the game with:
@@ -75,15 +71,17 @@ textual run --dev terminara\main.py
 ```
 </details>
 
-### Linting
-Setting file is in `.flake8`
-```bash
-python -m flake8 terminara
+### Linting and formatting
+Settings are defined in [pyproject.toml](pyproject.toml) under `[tool.ruff]`.
+```shell
+ruff check terminara --fix
+ruff format terminara
 ```
 
-### Unit testing & Coverage
-```bash
-python -m pytest --cov=terminara tests
+### Unit test and coverage report
+Settings are defined in [pyproject.toml](pyproject.toml) under `[tool.pytest]`.
+```shell
+pytest --cov=terminara
 ```
 
 ## Pull Request Guidelines
@@ -91,7 +89,7 @@ python -m pytest --cov=terminara tests
 When you submit a pull request, a few things will happen automatically:
 
 - **Automatic Summary & Review**: [gemini-code-assist](https://github.com/apps/gemini-code-assist) will automatically summarize the changes and perform a preliminary review. You don't need to follow all the suggestions from the bot.
-- **CI/CD**: A continuous integration pipeline will run to ensure the code quality. This includes running [unit tests](#unit-testing--coverage) and [linting](#linting).
+- **CI/CD**: A continuous integration pipeline will run to ensure the code quality. This includes running [Linting and formatting](#linting-and-formatting) and [Unit test and coverage report](#unit-test-and-coverage-report).
 
 To ensure a smooth process, it is highly recommended that you run the tests and linter locally before pushing your changes.
 
@@ -140,6 +138,10 @@ Configuration files are stored in OS-appropriate locations:
 ## Versioning
 
 This library follows [Semantic Versioning](http://semver.org/) and managed by [Release Please](https://github.com/googleapis/release-please).
+
+## 🤖 AI-Assisted Development Guidelines
+This project fully supports Vibecoding.
+- Basic Guidelines: An AI development guide is provided in [AGENTS.md](AGENTS.md).
 
 ## Links
 

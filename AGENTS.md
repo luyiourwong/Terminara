@@ -1,60 +1,11 @@
-# Terminara
+# Guides for AI Agents and Vibecoding
 
-A terminal-based ai simulation game.
-
-## Usage
-Read [CONTRIBUTING](CONTRIBUTING.md) for instructions on how to run the project in development mode.
-
-## Objective
-
+Terminara is a terminal-based ai simulation game.
 To create a terminal-based AI simulation game using Python and the `textual` library. The game features an AI-driven storyteller that generates scenarios and choices for the player within a customizable world setting.
 
-## Structure
-
-```
-.
-|-- terminara/
-|   |-- __init__.py         # Auto versioning via Release Please
-|   |-- main.py             # Application entry point
-|   |-- core/
-|   |   |-- __init__.py
-|   |   |-- game_engine.py    # Main game loop and logic
-|   |   |-- ai_narrator.py    # Handles interaction with the AI model
-|   |   |-- state_manager.py  # Manages game state, saving, and loading
-|   |   `-- world_handler.py  # Handles importing/exporting of world settings
-|   |-- objects/
-|   |   |-- __init__.py
-|   |   |-- game_state.py     # Defines the data structure for game state
-|   |   |-- world_settings.py # Defines the data structure for world settings
-|   |   `-- scenario.py       # Defines the data structure for game scenarios
-|   |-- screens/
-|   |   |-- __init__.py
-|   |   |-- main_menu_screen.py      # Main menu screen (default entry view)
-|   |   |-- new_game_screen.py       # Screen for configuring new game settings
-|   |   |-- game_view_screen.py      # Main gameplay screen
-|   |   |-- details_view_screen.py   # Screen for displaying player details
-|   |   |-- options_menu_screen.py   # Screen for game options
-|   |   |-- load_game_screen.py      # Screen for loading saved game files
-|   |   |-- save_game_screen.py      # Screen for saving saved game files
-|   |   |-- styles.tcss              # Styles for the screens
-|   |   `-- widgets/
-|   |       |-- __init__.py
-|   |       `-- file_list_item.py    # Widget for displaying save files in a list
-|   `-- data/
-|       |-- schema/           # Json schema files for world settings and saves
-|       |-- saves/            # Directory for saved game files
-|       `-- worlds/           # Directory for world setting files
-|-- tests/
-|   |-- __init__.py
-|   `-- test_core/
-|       |-- __init__.py
-|       `-- test_world_handler.py       # Unit test files
-|-- AGENTS.md             # Guide for AI coding agents
-|-- CONTRIBUTING.md       # Guide for contribute & development
-|-- README.md             # Guide for using this project
-|-- pyproject.toml        # Python project configuration
-`-- terminara.spec        # PyInstaller spec file
-```
+## Usage
+Read [README.md](README.md) for instructions on how to run the project in production mode.
+Read [CONTRIBUTING](CONTRIBUTING.md) for instructions on how to run the project in development mode.
 
 ## Key Functional
 
@@ -63,3 +14,23 @@ To create a terminal-based AI simulation game using Python and the `textual` lib
 - **Context Caching System:** A temporary storage system to provide the AI with consistent memory and context, independent of the AI's own memory limitations.
 - **Save & Load System:** Allows players to save their game progress and load it later.
 - **World Setting Management:** World settings can be exported to a file for sharing and imported to start new games in different worlds.
+
+## Execution & Environment Management
+
+- Virtual Environment: Always prefer using executables from the `.venv` virtual environment under the project directory (i.e., `.venv\\Scripts\\python.exe`).
+- Package Management: When managing packages, prefer using the `uv` command over global `pip` or `python`. Always add dependencies to `pyproject.toml` first, then run `uv sync` instead of using `uv add`.
+
+## Project Structure & Modularity
+
+- Distributed Structure: Prefer structuring code into distributed folders or modules, avoiding concentrating large amounts of code in a single file.
+  - Example: Use a distributed structure such as `config/manager.py` (logic handling) paired with `config/models.py` (Pydantic BaseModel data definitions), rather than consolidating everything into a single `config.py`.
+
+## Types & Data Structures
+
+- Explicit Types: Always define type hints in detail. Every method's inputs and outputs must have type definitions.
+- Data Structures: Prefer using Pydantic's `BaseModel` to define data structures; avoid passing complex data using raw `dict` wherever possible.
+
+## Code Style & Formatting
+
+- Frequent Logging: Add `logger` statements at I/O entry/exit points, API call sites, and major operations. Debug-level logging for non-critical items is also encouraged.
+- Linter & Formatter: When writing or modifying Python code, use `ruff` for both linting and formatting (`ruff check . --fix & ruff format .`).

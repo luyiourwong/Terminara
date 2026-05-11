@@ -1,24 +1,11 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
 /.idea/
 /dist/
 /build/
 /terminara.egg-info/
 /terminara/data/saves/*.json
-/.roo/
 .env
 /.coverage
 /coverage.xml
-
-# Virtual environment
 /.venv/
-
-# Python cache
 __pycache__/
 *.py[cod]
