@@ -1,7 +1,3 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "terminara"
 dynamic = ["version"]
@@ -9,20 +5,19 @@ description = "Terminal-based adventure game"
 authors = [
     { name = "Lu Yiou Rwong", email = "35396353+luyiourwong@users.noreply.github.com" }
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
-    "textual >= 6.0.0, <7",
-    "openai >= 1.107.0, <2"
+    "textual >= 8.0.0",
+    "openai >= 2.20.0"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
     "Topic :: Games/Entertainment",
     "Topic :: Games/Entertainment :: Role-Playing",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
     "Operating System :: POSIX",
     "Operating System :: POSIX :: Linux",
@@ -31,24 +26,45 @@ classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "flake8 ~= 7.3.0",
-    "pytest-cov ~= 7.0.0",
-    "textual-dev ~= 1.7.0"
+    { include-group = "lint" },
+    { include-group = "test" },
+    "textual-dev >= 1.8.0"
 ]
-
-[project.scripts]
-terminara = "terminara.main:main"
+lint = [
+    "ruff >= 0.15.0"
+]
+test = [
+    "pytest >= 9.0.0",
+    "pytest-cov >= 7.0.0"
+]
 
 [project.urls]
 Repository = "https://github.com/luyiourwong/terminara"
 Issues = "https://github.com/luyiourwong/terminara/issues"
 
-# Read version from terminara/__init__.py (Auto versioning via Release Please)
-[tool.setuptools.dynamic]
-version = { attr = "terminara.__version__" }
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-# Get packages
-[tool.setuptools.packages.find]
+[project.scripts]
+terminara = "terminara.main:main"
+
+# Read version from __init__.py (Auto versioning via Release Please)
+[tool.hatch.version]
+path = "terminara/__init__.py"
+
+[tool.hatch.build.targets.wheel]
 exclude = ["tests*", "docs*", ".github*", ".gemini*"]
+
+[tool.ruff]
+fix = true
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest]
+testpaths = ["tests"]
+pythonpath = ["terminara"]

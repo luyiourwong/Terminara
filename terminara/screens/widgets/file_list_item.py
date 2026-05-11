@@ -3,7 +3,7 @@ from datetime import datetime
 
 from textual.app import ComposeResult
 from textual.containers import Horizontal
-from textual.widgets import ListItem, Label
+from textual.widgets import Label, ListItem
 
 
 class FileListItem(ListItem):
@@ -15,9 +15,7 @@ class FileListItem(ListItem):
         self.file_name = os.path.basename(file_path)
         try:
             mod_time = os.path.getmtime(file_path)
-            self.mod_time_str = datetime.fromtimestamp(mod_time).strftime(
-                "%Y-%m-%d %H:%M:%S"
-            )
+            self.mod_time_str = datetime.fromtimestamp(mod_time).strftime("%Y-%m-%d %H:%M:%S")
         except FileNotFoundError:
             self.mod_time_str = "New File"
 

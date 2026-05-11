@@ -24,7 +24,7 @@
         | <a href="https://openaitx.github.io/view.html?user=luyiourwong&project=Terminara&lang=tr">Türkçe</a>
         | <a href="https://openaitx.github.io/view.html?user=luyiourwong&project=Terminara&lang=vi">Tiếng Việt</a>
         | <a href="https://openaitx.github.io/view.html?user=luyiourwong&project=Terminara&lang=id">Bahasa Indonesia</a>
-        | <a href="https://openaitx.github.io/view.html?user=luyiourwong&project=Terminara&lang=as">অসমীয়া</
+        | <a href="https://openaitx.github.io/view.html?user=luyiourwong&project=Terminara&lang=as">অসমীয়া</a>
       </div>
     </div>
   </details>
@@ -34,7 +34,7 @@
 # Terminara
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/luyiourwong/Terminara)
-![Python support](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
+![Python support](https://img.shields.io/badge/Python-3.12%20%7C%203.13%20%7C%203.14-blue)
 
 A terminal-based ai simulation game.
 
@@ -44,11 +44,11 @@ You can download the executable application from [latest release](https://github
 
 The full compressed file includes the executable file and the default world settings file. You can only download the executable file if you are updating the game to the latest version.
 
-| OS      | Version                                          |
-|---------|--------------------------------------------------|
-| Windows | Windows 10, Windows 11                           |
-| Linux   | (GLIBC 2.35+) Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
-| MacOS   | macOS 13, macOS 14, macOS 15, macOS 26           |
+| OS      | Version                                                            |
+|---------|--------------------------------------------------------------------|
+| Windows | Windows 10, Windows 11                                             |
+| Linux   | (GLIBC 2.35+) Ubuntu 22.04 LTS, Ubuntu 24.04 LTS, Ubuntu 26.04 LTS |
+| MacOS   | macOS 13, macOS 14, macOS 15, macOS 26                             |
 
 <details>
 <summary><strong>Manual run</strong></summary>
@@ -61,35 +61,19 @@ The full compressed file includes the executable file and the default world sett
     cd Terminara
     ```
 
-2.  **Create a virtual environment:**
+2.  **Install environment:**
+    We recommend using [uv>=0.4.27](https://github.com/astral-sh/uv) to synchronize locked dependencies.
     ```bash
-    python -m venv .venv
+    uv sync
     source .venv/bin/activate
     ```
     On Windows, use `.venv\Scripts\activate`
 
-3.  **Install the dependencies:**
-    ```bash
-    pip install -e .
-    ```
-
-### Start Method 1: Using the installed command (Recommended)
+### Start
 After installation, run the game with:
 ```bash
 terminara
 ```
-
-### Start Method 2: Direct execution
-Cross-platform way
-```bash
-python -m terminara.main
-```
-or
-```bash
-python terminara/main.py
-```
-On Windows, use `terminara\main.py`
-
 for more information, see [Contribute & Develop Guide](CONTRIBUTING.md).
 </details>
 

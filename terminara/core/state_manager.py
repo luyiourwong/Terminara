@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from terminara.objects.game_state import GameState
 from terminara.objects.world_settings import WorldSettings
@@ -14,9 +14,7 @@ class StateManager:
         Args:
             world_settings: The world settings object.
         """
-        self._variables: Dict[str, Any] = {
-            name: var.value for name, var in world_settings.variables.items()
-        }
+        self._variables: Dict[str, Any] = {name: var.value for name, var in world_settings.variables.items()}
         self._inventory: Dict[str, int] = {}
         # Known items are stored in world_settings.items, but inventory starts empty.
 

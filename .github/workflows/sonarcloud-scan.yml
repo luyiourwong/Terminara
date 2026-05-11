@@ -12,13 +12,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.13'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Install dependencies
         run: |
-          pip install -e .[dev]
+          uv sync
       - name: Unit testing with coverage xml
         run: |
-          python -m pytest --cov=terminara --cov-report=xml tests
+          uv run pytest --cov=terminara --cov-report=xml tests
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:

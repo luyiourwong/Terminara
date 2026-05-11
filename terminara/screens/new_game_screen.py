@@ -6,7 +6,7 @@ from rich.text import Text
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
-from textual.widgets import Button, Select, Static, OptionList
+from textual.widgets import Button, OptionList, Select, Static
 
 from terminara.core.world_handler import load_world
 from terminara.main import TerminalApp
@@ -48,9 +48,7 @@ class NewGameScreen(Screen):
     def on_mount(self) -> None:
         """Populate the select widget with world files."""
         worlds_path = pathlib.Path(os.getcwd()) / "terminara" / "data" / "worlds"
-        world_files = [
-            f.stem for f in worlds_path.iterdir() if f.suffix == ".json" and f.stem != "world_schema"
-        ]
+        world_files = [f.stem for f in worlds_path.iterdir() if f.suffix == ".json" and f.stem != "world_schema"]
         self.query_one(Select).set_options([(world, world) for world in world_files])
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
@@ -61,6 +59,7 @@ class NewGameScreen(Screen):
             self.action_start_game()
         elif event.button.id == "return":
             from terminara.screens.main_menu_screen import MainMenuScreen
+
             self.app.switch_screen(MainMenuScreen())
 
     def action_load_world(self) -> None:
@@ -68,12 +67,8 @@ class NewGameScreen(Screen):
         world_name = self.query_one(Select).value
         if world_name and world_name is not Select.BLANK:
             self.world_settings = load_world(str(world_name))
-            self.query_one("#world_name", Static).update(
-                f"World Name: {self.world_settings.world.name}"
-            )
-            self.query_one("#world_description", Static).update(
-                f"Description: {self.world_settings.world.description}"
-            )
+            self.query_one("#world_name", Static).update(f"World Name: {self.world_settings.world.name}")
+            self.query_one("#world_description", Static).update(f"Description: {self.world_settings.world.description}")
             self.query_one("#system_prompt", Static).update(
                 f"System Prompt: {'Set' if self.world_settings.ai.system else 'Not Set'}"
             )

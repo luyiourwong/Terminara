@@ -33,14 +33,17 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install dependencies
         run: |
-          pip install -e .
-          pip install pyinstaller
+          uv sync
+          uv tool install pyinstaller
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller terminara.spec
+          uv run pyinstaller terminara.spec
 
       - name: Rename executable (Windows)
         if: matrix.os == 'windows-latest'
