@@ -3,12 +3,12 @@ from typing import cast
 from textual import work
 from textual.app import ComposeResult
 from textual.binding import Binding
+from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
-from textual.widgets import Button, Static, Input
-from textual.containers import Vertical, Horizontal
+from textual.widgets import Button, Input, Static
 
 from terminara.main import TerminalApp
-from terminara.objects.scenario import Scenario, Choice
+from terminara.objects.scenario import Choice, Scenario
 from terminara.screens.details_view_screen import DetailsViewScreen
 from terminara.screens.options_menu_screen import OptionsMenuScreen
 

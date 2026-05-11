@@ -1,5 +1,5 @@
-import os
 import json
+import os
 import platform
 from pathlib import Path
 
@@ -11,11 +11,11 @@ class ConfigManager:
         """Initializes the AiConfigManager and ensures the config directory exists."""
         system = platform.system()
         if system == "Windows":
-            base_dir = Path(os.environ.get('LOCALAPPDATA', Path.home() / 'AppData' / 'Local'))
+            base_dir = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
         elif system == "Darwin":  # macOS
-            base_dir = Path.home() / 'Library' / 'Application Support'
+            base_dir = Path.home() / "Library" / "Application Support"
         else:  # Linux
-            base_dir = Path.home() / '.local' / 'share'
+            base_dir = Path.home() / ".local" / "share"
 
         self.config_dir = base_dir / "Terminara"
         self.config_dir.mkdir(parents=True, exist_ok=True)
@@ -30,7 +30,7 @@ class ConfigManager:
         """
         if not self.config_file.exists():
             return {}
-        with open(self.config_file, 'r') as f:
+        with open(self.config_file, "r") as f:
             try:
                 return json.load(f)
             except json.JSONDecodeError:
@@ -43,7 +43,7 @@ class ConfigManager:
         Args:
             config_data (dict): The configuration data to save.
         """
-        with open(self.config_file, 'w') as f:
+        with open(self.config_file, "w") as f:
             json.dump(config_data, f, indent=4)
 
     def get_value(self, key: str):

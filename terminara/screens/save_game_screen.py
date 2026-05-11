@@ -8,12 +8,11 @@ from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Vertical
 from textual.screen import ModalScreen
-from textual.widgets import ListView, Button, Static
+from textual.widgets import Button, ListView, Static
 
 from terminara.main import TerminalApp
-from terminara.screens.widgets.file_list_item import FileListItem
-
 from terminara.objects.scenario import Scenario
+from terminara.screens.widgets.file_list_item import FileListItem
 
 SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
 
@@ -104,7 +103,7 @@ class SaveGameScreen(ModalScreen):
         save_data = {
             "world": terminal_app.world_settings_file,
             "game_state": dataclasses.asdict(game_state),
-            "scenario": _scenario_to_dict(terminal_app.game_engine.get_current_scenario())
+            "scenario": _scenario_to_dict(terminal_app.game_engine.get_current_scenario()),
         }
         file_path = os.path.join(SAVES_DIR, file_name)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)

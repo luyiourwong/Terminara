@@ -1,7 +1,7 @@
 from terminara.core.ai_narrator import AiNarrator
 from terminara.core.state_manager import StateManager
 from terminara.objects.game_state import GameState
-from terminara.objects.scenario import Scenario, Choice, VariableAction, ItemAction
+from terminara.objects.scenario import Choice, ItemAction, Scenario, VariableAction
 from terminara.objects.world_settings import WorldSettings
 
 
@@ -9,33 +9,22 @@ def get_initial_scenario() -> Scenario:
     return Scenario(
         text="You find yourself standing at the edge of a mysterious forest. The ancient trees tower above you, their branches swaying gently in the wind. Strange sounds echo from within the depths of the woodland. What do you choose to do?",  # noqa: E501
         choices=[
-            Choice(
-                text="1. Enter the forest cautiously",
-                actions=[
-                    VariableAction(
-                        variable_name="hp",
-                        value="-5"
-                    )
-                ]
-            ),
+            Choice(text="1. Enter the forest cautiously", actions=[VariableAction(variable_name="hp", value="-5")]),
             Choice(text="2. Call out to see if anyone responds"),
-            Choice(
-                text="3. Search the trees for something",
-                actions=[
-                    ItemAction(
-                        item_name="wood",
-                        quantity=1
-                    )
-                ]
-            ),
-            Choice(text="4. Turn back and leave")
-        ]
+            Choice(text="3. Search the trees for something", actions=[ItemAction(item_name="wood", quantity=1)]),
+            Choice(text="4. Turn back and leave"),
+        ],
     )
 
 
 class GameEngine:
-    def __init__(self, terminal_app, world_settings: WorldSettings, game_state: GameState | None = None,
-                 load_scenario: Scenario | None = None):
+    def __init__(
+        self,
+        terminal_app,
+        world_settings: WorldSettings,
+        game_state: GameState | None = None,
+        load_scenario: Scenario | None = None,
+    ):
         self.world_settings = world_settings
         self.state_manager = StateManager(world_settings=self.world_settings)
         self.ai_narrator = AiNarrator(config_manager=terminal_app.config_manager)
@@ -73,12 +62,10 @@ class GameEngine:
 
         # Generate the next scenario.
         game_state = self.state_manager.save_game()
-        scenario = self.ai_narrator.generate_scenario(self.current_scenario.text, current_choice_str,
-                                                      self.world_settings, game_state)
-        choices = self.ai_narrator.generate_choice(scenario, self.world_settings, game_state)
-        new_scenario = Scenario(
-            text=scenario,
-            choices=choices.choices
+        scenario = self.ai_narrator.generate_scenario(
+            self.current_scenario.text, current_choice_str, self.world_settings, game_state
         )
+        choices = self.ai_narrator.generate_choice(scenario, self.world_settings, game_state)
+        new_scenario = Scenario(text=scenario, choices=choices.choices)
         self.current_scenario = new_scenario
         return new_scenario

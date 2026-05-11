@@ -6,11 +6,11 @@ from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Vertical
 from textual.screen import ModalScreen
-from textual.widgets import ListView, Static, Button
+from textual.widgets import Button, ListView, Static
 
 from terminara.main import TerminalApp
 from terminara.objects.game_state import GameState
-from terminara.objects.scenario import Scenario, Choice
+from terminara.objects.scenario import Choice, Scenario
 from terminara.screens.widgets.file_list_item import FileListItem
 
 SAVES_DIR = os.path.join(os.getcwd(), "terminara", "data", "saves")
@@ -95,11 +95,11 @@ class LoadGameScreen(ModalScreen):
             return
         # Loading World Settings
         from terminara.core.world_handler import load_world
+
         world_settings = load_world(world_name)
         try:
             game_state = GameState(
-                variables=game_state_dict.get('variables', {}),
-                inventory=game_state_dict.get('inventory', {})
+                variables=game_state_dict.get("variables", {}), inventory=game_state_dict.get("inventory", {})
             )
         except Exception as e:
             self.log(f"Error: Failed to reconstruct GameState from loaded data: {e}")
@@ -108,7 +108,7 @@ class LoadGameScreen(ModalScreen):
         try:
             load_scenario = Scenario(
                 text=scenario_dict.get("text", ""),
-                choices=[Choice(**choice_data) for choice_data in scenario_dict.get("choices", [])]
+                choices=[Choice(**choice_data) for choice_data in scenario_dict.get("choices", [])],
             )
             # Set the current world setting file in the application, consistent with `action_load_world`
             terminal_app.world_settings_file = world_name

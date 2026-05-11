@@ -6,10 +6,10 @@ from textual.containers import Container
 from textual.screen import Screen
 from textual.widgets import Button, Input, Label
 
+from terminara import AI_HOST_KEY, AI_KEY_KEY, AI_MODEL_KEY
 from terminara.main import TerminalApp
 from terminara.screens.load_game_screen import LoadGameScreen
 from terminara.screens.new_game_screen import NewGameScreen
-from terminara import AI_HOST_KEY, AI_KEY_KEY, AI_MODEL_KEY
 
 
 class MainMenuScreen(Screen):

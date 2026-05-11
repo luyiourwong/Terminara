@@ -3,15 +3,15 @@ import os
 import pathlib
 from typing import Union
 
-from terminara.objects.scenario import Scenario, Choice, ItemAction, VariableAction
+from terminara.objects.scenario import Choice, ItemAction, Scenario, VariableAction
 from terminara.objects.world_settings import (
-    WorldSettings,
-    WorldInfo,
     AiPrompt,
     Item,
     NumericVariable,
-    TextVariable,
     ScenarioSettings,
+    TextVariable,
+    WorldInfo,
+    WorldSettings,
 )
 
 
@@ -46,10 +46,7 @@ def load_world(world_name: str) -> WorldSettings:
     world_info = WorldInfo(**data["world"])
     ai_prompt = AiPrompt(**data["ai"])
 
-    items = {
-        item_name: Item(**item_data)
-        for item_name, item_data in data.get("items", {}).items()
-    }
+    items = {item_name: Item(**item_data) for item_name, item_data in data.get("items", {}).items()}
 
     variables: dict[str, Union[NumericVariable, TextVariable]] = {}
     for var_name, var_data in data.get("variables", {}).items():

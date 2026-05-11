@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
-from typing import Dict, Any, Optional
 from abc import ABC
+from dataclasses import dataclass, field
+from typing import Any, Dict, Optional
 
 from terminara.objects.scenario import Scenario
 
@@ -8,6 +8,7 @@ from terminara.objects.scenario import Scenario
 @dataclass
 class GameVariable(ABC):
     """Represents a variable in the game."""
+
     description: str
     value: Any
 
@@ -15,6 +16,7 @@ class GameVariable(ABC):
 @dataclass
 class NumericVariable(GameVariable):
     """Represents a numeric variable in the game."""
+
     value: int | float
     min_value: int | float | None = None
     max_value: int | float | None = None
@@ -23,12 +25,14 @@ class NumericVariable(GameVariable):
 @dataclass
 class TextVariable(GameVariable):
     """Represents a text variable in the game."""
+
     value: str
 
 
 @dataclass
 class Item:
     """Represents an item in the game."""
+
     name: str
     description: str
     attributes: Dict[str, Any] = field(default_factory=dict)
@@ -37,6 +41,7 @@ class Item:
 @dataclass
 class AiPrompt:
     """Represents the AI prompt in the game."""
+
     system: str
     prompt: str
     lore: Dict[str, str] = field(default_factory=dict)
@@ -45,6 +50,7 @@ class AiPrompt:
 @dataclass
 class WorldInfo:
     """Represents the world information of the game."""
+
     name: str
     description: str
 
@@ -52,12 +58,14 @@ class WorldInfo:
 @dataclass
 class ScenarioSettings:
     """Represents the scenario settings of the game."""
+
     init: Optional[Scenario] = None
 
 
 @dataclass
 class WorldSettings:
     """Represents the world settings of the game."""
+
     world: WorldInfo = field(default_factory=WorldInfo)
     ai: AiPrompt = field(default_factory=AiPrompt)
     variables: Dict[str, GameVariable] = field(default_factory=dict)
