@@ -52,7 +52,7 @@ class GameEngine:
                 self.state_manager.modify_variable(action.variable_name, action.value)
             elif isinstance(action, ItemAction):
                 if action.quantity < 0:
-                    self.state_manager.remove_item(action.item_name, action.quantity)
+                    self.state_manager.remove_item(action.item_name, -action.quantity)
                 else:
                     self.state_manager.add_item(action.item_name, action.quantity)
 
