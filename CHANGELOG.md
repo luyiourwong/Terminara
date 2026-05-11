@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/luyiourwong/Terminara/compare/v0.8.0...v0.8.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* negate quantity when removing items so remove_item actually runs ([c89f275](https://github.com/luyiourwong/Terminara/commit/c89f275df42d7a6e611955662818e5c6a009d586))
+
 ## [0.8.0](https://github.com/luyiourwong/Terminara/compare/v0.7.1...v0.8.0) (2025-09-26)
 
 
